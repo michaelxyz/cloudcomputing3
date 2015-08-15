@@ -25,7 +25,7 @@ var Product = module.exports = function Product(_node) {
 
 // Public constants:
 
-User.VALIDATION_INFO = {
+Product.VALIDATION_INFO = {
     'username': {
         required: true,
         minLength: 2,
@@ -103,7 +103,7 @@ function isConstraintViolation(err) {
 
 // Atomically updates this user, both locally and remotely in the db, with the
 // given property updates.
-product.prototype.patch = function (props, callback) {
+Product.prototype.patch = function (props, callback) {
     //var safeProps = validate(props);
 
     var query = [
@@ -212,7 +212,7 @@ Product.prototype.del = function (callback) {
 
 // Calls callback w/ (err, following, others), where following is an array of
 // users this user follows, and others is all other users minus him/herself.
-User.prototype.getFollowingAndOthers = function (callback) {
+Product.prototype.getFollowingAndOthers = function (callback) {
     // Query all users and whether we follow each one or not:
     var query = [
         'MATCH (user:User {username: {thisUsername}})',
@@ -254,7 +254,7 @@ User.prototype.getFollowingAndOthers = function (callback) {
 
 // Static methods:
 
-User.get = function (username, callback) {
+Product.get = function (username, callback) {
     var query = [
         'MATCH (user:User {username: {username}})',
         'RETURN user',
