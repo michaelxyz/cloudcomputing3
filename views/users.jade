@@ -1,36 +1,79 @@
 include mixins
 extends layout
 block content
-    h1 Users
-    form(action='', method='POST')
-        p Create a new customer:
-        input(type='text', name='firstname', placeholder='first name')
-        br
-        input(type='text', name='lastname', placeholder='last name')
-        br
-        input(type='number', name='uuid', placeholder='id')
-        br
-        input(type='number', name='age', placeholder='age')
-        br
-        input(type='text', name='country', placeholder='country')
-        br
-        input(type='text', name='city', placeholder='city')
-        br
-        input(type='text', name='state', placeholder='state')
-        br
-        input(type='text', name='gender', placeholder='gender')
-        br
-        input(type='email', name='email', placeholder='email address')
-        br
-        +button("info", "/users", "small", "Add User")
-        if error
-            span.error &nbsp;#{error}
+    .row
+        .col-md-4.col-sm-6.col-xs-12
+            +panel("Add user", "primary")) Adding a User is easy, simply log to this page
+                | enter deatils and submit.
+            form(action='', method='POST')
+                p Create a new customer:
+                input(type='text', name='firstname', placeholder='first name')
+                br
+                input(type='text', name='lastname', placeholder='last name')
+                br
+                input(type='number', name='uuid', placeholder='id')
+                br
+                input(type='number', name='age', placeholder='age')
+                br
+                input(type='text', name='country', placeholder='country')
+                br
+                input(type='text', name='city', placeholder='city')
+                br
+                input(type='text', name='state', placeholder='state')
+                br
+                input(type='text', name='gender', placeholder='gender')
+                br
+                input(type='email', name='email', placeholder='email address')
+                br
+                +button("primary", "/users", "small", "Add User")
+                if error
+                    span.error &nbsp;#{error}
+        .col-md-4.col-sm-6.col-xs-12
+            +panel("Add product", "info")) Adding a Product is also easy, simply log to this page
+                | enter deatils and submit.
+            form(action='', method='POST')
+            p Create a new product:
+            input(type='text', name='firstname', placeholder='tag list')
+            br
+            input(type='text', name='lastname', placeholder='id')
+            br
+            input(type='number', name='uuid', placeholder='name')
+            br
+            input(type='number', name='age', placeholder='model')
+            br
+            input(type='text', name='country', placeholder='producer')
+            br
+            +button("info", "/users", "small", "Add Product")
+            if error
+                span.error &nbsp;#{error}
+        .col-md-4.col-sm-6.col-xs-12
+        .col-md-4.col-sm-6.col-xs-12
+            +panel("Run a query", "success")) Running a query can be done by simply, simply log to this page
+                | enter deatils and submit
+            form(action='', method='POST')
+            p Run Query:
+            input(type='text', name='firstname', placeholder='tag list')
+            br
+            input(type='text', name='lastname', placeholder='id')
+            br
+            input(type='number', name='uuid', placeholder='name')
+            br
+            input(type='number', name='age', placeholder='model')
+            br
+            input(type='text', name='country', placeholder='producer')
+            br
+            +button("success", "/users", "small", "Add Product")
+            if error
+                span.error &nbsp;#{error}
 
-        if users.length
-            p Here are the current users:
-            ul.users
-                for user in users
-                    li.user
-                        p firstname: #{user.firstname}
-        else
-            p There are no users currently.
+
+
+
+        //if users.length
+        //    p Here are the current users:
+        //    ul.users
+        //        for user in users
+        //            li.user
+        //                p firstname: #{user.firstname}
+        //else
+        //    p There are no users currently.
