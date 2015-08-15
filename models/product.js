@@ -1,5 +1,5 @@
 /**
- * Created by czeizm on 8/14/2015.
+ * Created by czeizm on 8/15/2015.
  */
 // user.js
 // User model logic.
@@ -17,7 +17,7 @@ var db = new neo4j.GraphDatabase({
 
 // Private constructor:
 
-var Customer = module.exports = function Customer(_node) {
+var Product = module.exports = function Product(_node) {
     // All we'll really store is the node; the rest of our properties will be
     // derivable or just pass-through properties (see below).
     this._node = _node;
@@ -25,27 +25,20 @@ var Customer = module.exports = function Customer(_node) {
 
 // Public constants:
 
-Customer.VALIDATION_INFO = {
-    'firstname': {
+User.VALIDATION_INFO = {
+    'username': {
         required: true,
         minLength: 2,
         maxLength: 16,
         pattern: /^[A-Za-z0-9_]+$/,
         message: '2-16 characters; letters, numbers, and underscores only.'
     },
-    'lastname': {
-        required: true,
-        minLength: 2,
-        maxLength: 16,
-        pattern: /^[A-Za-z0-9_]+$/,
-        message: '2-16 characters; letters, numbers, and underscores only.'
-    }
 };
 
 // Public instance properties:
 
 // The user's username, e.g. 'aseemk'.
-Object.defineProperty(Customer.prototype, 'uuid', {
+Object.defineProperty(Product.prototype, 'uuid', {
     get: function () { return this._node.properties['uuid']; }
 });
 
@@ -110,22 +103,21 @@ function isConstraintViolation(err) {
 
 // Atomically updates this user, both locally and remotely in the db, with the
 // given property updates.
-Customer.prototype.patch = function (props, callback) {
+product.prototype.patch = function (props, callback) {
     //var safeProps = validate(props);
 
     var query = [
-        'MATCH (cus:User {firstname: {firstname}, {lasttname: {lastname}})',
-        'SET cus += {props}',
-        'RETURN cus',
+        'MATCH (product:Product {uuid: {uuid}})',
+        'SET product += {props}',
+        'RETURN product',
     ].join('\n');
 
     var params = {
-        firstname: this.firstname,
-        lastname: this.lastname,
+        username: this.username,
         props: props,
     };
 
-    var self = this;
+    //var self = this;
 
     db.cypher({
         query: query,
@@ -148,25 +140,25 @@ Customer.prototype.patch = function (props, callback) {
         //}
 
         // Update our node with this updated+latest data from the server:
-        self._node = results[0]['cus'];
+        self._node = results[0]['uuid'];
 
         callback(null);
     });
 };
 
-Customer.prototype.del = function (callback) {
+Product.prototype.del = function (callback) {
     // Use a Cypher query to delete both this user and his/her following
     // relationships in one query and one network request:
     // (Note that this'll still fail if there are any relationships attached
     // of any other types, which is good because we don't expect any.)
     var query = [
-        'MATCH (cus:Customer {uuid: {uuid}})',
-        'OPTIONAL MATCH (user) -[rel:purchase]- (other)',
-        'DELETE cus, rel',
+        'MATCH (product:Product {uuid: {uuid}})',
+        'OPTIONAL MATCH (user) -[rel:follows]- (other)',
+        'DELETE user, rel',
     ].join('\n')
 
     var params = {
-        uuid: this.uuid
+        username: this.username,
     };
 
     db.cypher({
@@ -177,163 +169,159 @@ Customer.prototype.del = function (callback) {
     });
 };
 
-//User.prototype.follow = function (other, callback) {
-//    var query = [
-//        'MATCH (user:User {username: {thisUsername}})',
-//        'MATCH (other:User {username: {otherUsername}})',
-//        'MERGE (user) -[rel:follows]-> (other)',
-//    ].join('\n')
-//
-//    var params = {
-//        thisUsername: this.username,
-//        otherUsername: other.username,
-//    };
-//
-//    db.cypher({
-//        query: query,
-//        params: params,
-//    }, function (err) {
-//        callback(err);
-//    });
-//};
-
-//User.prototype.unfollow = function (other, callback) {
-//    var query = [
-//        'MATCH (user:User {username: {thisUsername}})',
-//        'MATCH (other:User {username: {otherUsername}})',
-//        'MATCH (user) -[rel:follows]-> (other)',
-//        'DELETE rel',
-//    ].join('\n')
-//
-//    var params = {
-//        thisUsername: this.username,
-//        otherUsername: other.username,
-//    };
-//
-//    db.cypher({
-//        query: query,
-//        params: params,
-//    }, function (err) {
-//        callback(err);
-//    });
-//};
-
-//// Calls callback w/ (err, following, others), where following is an array of
-//// users this user follows, and others is all other users minus him/herself.
-//User.prototype.getFollowingAndOthers = function (callback) {
-//    // Query all users and whether we follow each one or not:
-//    var query = [
-//        'MATCH (user:User {username: {thisUsername}})',
-//        'MATCH (other:User)',
-//        'OPTIONAL MATCH (user) -[rel:follows]-> (other)',
-//        'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
-//    ].join('\n')
-//
-//    var params = {
-//        thisUsername: this.username,
-//    };
-//
-//    var user = this;
-//    db.cypher({
-//        query: query,
-//        params: params,
-//    }, function (err, results) {
-//        if (err) return callback(err);
-//
-//        var following = [];
-//        var others = [];
-//
-//        for (var i = 0; i < results.length; i++) {
-//            var other = new User(results[i]['other']);
-//            var follows = results[i]['COUNT(rel)'];
-//
-//            if (user.username === other.username) {
-//                continue;
-//            } else if (follows) {
-//                following.push(other);
-//            } else {
-//                others.push(other);
-//            }
-//        }
-//
-//        callback(null, following, others);
-//    });
-//};
-
-// Static methods:
-
-//User.get = function (username, callback) {
-//    var query = [
-//        'MATCH (user:User {username: {username}})',
-//        'RETURN user',
-//    ].join('\n')
-//
-//    var params = {
-//        username: username,
-//    };
-//
-//    db.cypher({
-//        query: query,
-//        params: params,
-//    }, function (err, results) {
-//        if (err) return callback(err);
-//        if (!results.length) {
-//            err = new Error('No such user with username: ' + username);
-//            return callback(err);
-//        }
-//        var user = new User(results[0]['user']);
-//        callback(null, user);
-//    });
-//};
-
-Customer.getAll = function (callback) {
-    console.log("Inside getAll")
+User.prototype.follow = function (other, callback) {
     var query = [
-        'MATCH (cus:Customer)',
-        'RETURN cus',
-    ].join('\n');
+        'MATCH (user:User {username: {thisUsername}})',
+        'MATCH (other:User {username: {otherUsername}})',
+        'MERGE (user) -[rel:follows]-> (other)',
+    ].join('\n')
+
+    var params = {
+        thisUsername: this.username,
+        otherUsername: other.username,
+    };
 
     db.cypher({
         query: query,
-    }, function (err, results) {
-        if (err) return callback(err);
-        var customers = results.map(function (result) {
-            return new Customer(result['cus']);
-        });
-        console.log(customers)
-        callback(null, customers);
+        params: params,
+    }, function (err) {
+        callback(err);
     });
 };
 
-// Creates the customer and persists (saves) it to the db, incl. indexing it:
-Customer.create = function (props, callback) {
-    console.log('Inside customer.create')
+User.prototype.unfollow = function (other, callback) {
     var query = [
-        'CREATE (cus:Customer {props})',
-        'RETURN cus',
-    ].join('\n');
+        'MATCH (user:User {username: {thisUsername}})',
+        'MATCH (other:User {username: {otherUsername}})',
+        'MATCH (user) -[rel:follows]-> (other)',
+        'DELETE rel',
+    ].join('\n')
 
     var params = {
-        props: props
-        //props: validate(props)
+        thisUsername: this.username,
+        otherUsername: other.username,
+    };
+
+    db.cypher({
+        query: query,
+        params: params,
+    }, function (err) {
+        callback(err);
+    });
+};
+
+// Calls callback w/ (err, following, others), where following is an array of
+// users this user follows, and others is all other users minus him/herself.
+User.prototype.getFollowingAndOthers = function (callback) {
+    // Query all users and whether we follow each one or not:
+    var query = [
+        'MATCH (user:User {username: {thisUsername}})',
+        'MATCH (other:User)',
+        'OPTIONAL MATCH (user) -[rel:follows]-> (other)',
+        'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
+    ].join('\n')
+
+    var params = {
+        thisUsername: this.username,
+    };
+
+    var user = this;
+    db.cypher({
+        query: query,
+        params: params,
+    }, function (err, results) {
+        if (err) return callback(err);
+
+        var following = [];
+        var others = [];
+
+        for (var i = 0; i < results.length; i++) {
+            var other = new User(results[i]['other']);
+            var follows = results[i]['COUNT(rel)'];
+
+            if (user.username === other.username) {
+                continue;
+            } else if (follows) {
+                following.push(other);
+            } else {
+                others.push(other);
+            }
+        }
+
+        callback(null, following, others);
+    });
+};
+
+// Static methods:
+
+User.get = function (username, callback) {
+    var query = [
+        'MATCH (user:User {username: {username}})',
+        'RETURN user',
+    ].join('\n')
+
+    var params = {
+        username: username,
     };
 
     db.cypher({
         query: query,
         params: params,
     }, function (err, results) {
-        //if (isConstraintViolation(err)) {
-        //    // TODO: This assumes username is the only relevant constraint.
-        //    // We could parse the constraint property out of the error message,
-        //    // but it'd be nicer if Neo4j returned this data semantically.
-        //    // Alternately, we could tweak our query to explicitly check first
-        //    // whether the username is taken or not.
-        //    err = new errors.ValidationError(
-        //        'The username ‘' + props.username + '’ is taken.');
-        //}
         if (err) return callback(err);
-        //var user = new User(results[0]['cus']);
-        //callback(null, user);
+        if (!results.length) {
+            err = new Error('No such user with username: ' + username);
+            return callback(err);
+        }
+        var user = new User(results[0]['user']);
+        callback(null, user);
+    });
+};
+
+User.getAll = function (callback) {
+    var query = [
+        'MATCH (user:User)',
+        'RETURN user',
+    ].join('\n');
+
+    db.cypher({
+        query: query,
+    }, function (err, results) {
+        if (err) return callback(err);
+        var users = results.map(function (result) {
+            return new User(result['user']);
+        });
+        callback(null, users);
+    });
+};
+
+// Creates the user and persists (saves) it to the db, incl. indexing it:
+User.create = function (props, callback) {
+    var query = [
+        'CREATE (user:User {props})',
+        'RETURN user',
+    ].join('\n');
+
+    var params = {
+        props: validate(props)
+    };
+
+    db.cypher({
+        query: query,
+        params: params,
+    }, function (err, results) {
+        if (isConstraintViolation(err)) {
+            // TODO: This assumes username is the only relevant constraint.
+            // We could parse the constraint property out of the error message,
+            // but it'd be nicer if Neo4j returned this data semantically.
+            // Alternately, we could tweak our query to explicitly check first
+            // whether the username is taken or not.
+            err = new errors.ValidationError(
+                'The username ‘' + props.username + '’ is taken.');
+        }
+        if (err) return callback(err);
+        var user = new User(results[0]['user']);
+        callback(null, user);
     });
 };
 

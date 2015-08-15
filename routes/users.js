@@ -23,6 +23,14 @@ exports.list = function (req, res, next) {
             Customer: Customer,
             users: customers,
             firstname: req.query.firstname,   // Support pre-filling create form
+            lastname : req.query.lastname,
+            uuid : req.query.uuid,
+            age : req.query.age,
+            country : req.query.country,
+            city: req.query.city,
+            state: req.query.state,
+            gender: req.query.gender,
+            email: req.query.email,
             error: req.query.error,     // Errors creating; see create route
         });
     });
@@ -63,7 +71,14 @@ exports.create = function (req, res, next) {
     console.log('Creating new customer')
     Customer.create({
         firstname: req.body.firstname,
-        lastname: req.body.lastname
+        lastname: req.body.lastname,
+        uuid : req.body.uuid,
+        age : req.body.age,
+        country : req.body.country,
+        city: req.body.city,
+        state: req.body.state,
+        gender: req.body.gender,
+        email: req.query.email,
     }, function (err, user) {
         if (err) {
             if (err instanceof errors.ValidationError) {
@@ -144,11 +159,11 @@ exports.edit = function (req, res, next) {
  * DELETE /users/:username
  */
 exports.del = function (req, res, next) {
-    User.get(req.params.username, function (err, user) {
+    Customer.get(req.params.uuid, function (err, customer) {
         // TODO: Gracefully handle "no such user" error somehow.
         // E.g. redirect back to /users with an info message?
         if (err) return next(err);
-        user.del(function (err) {
+        customer.del(function (err) {
             if (err) return next(err);
             res.redirect('/users');
         });
