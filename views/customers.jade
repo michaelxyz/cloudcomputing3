@@ -1,0 +1,22 @@
+//
+   Created by czeizm on 8/14/2015.
+extends layout
+block content
+   //h1 Users
+   //if users.length
+   //   p Here are the current users:
+   //   ul.users
+   //      for user in users
+   //         li.user
+   //            a(href='/users/#{user.username}') @#{user.username}
+   //else
+   //   p There are no users currently.
+   form(action='', method='POST')
+      p Create a new user:
+      input(type='text', name='firstname', placeholder='first name')
+      br
+      input(type='text', name='lastname', placeholder='last name')
+      input(type='submit', value='Create')
+      if error
+         span.error &nbsp;#{error}
+
