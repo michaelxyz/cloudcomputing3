@@ -1,35 +1,36 @@
+include mixins
 extends layout
-
 block content
     h1 Users
-
-    if users.length
-        p Here are the current users:
-        ul.users
-            for user in users
-                li.user
-                    p firstname: #{user.firstname}
-    else
-        p There are no users currently.
-
-    //form(action='', method='POST')
-    //    p Create a new user:
-    //    span @
-    //    input(type='text', name='username', placeholder='username', required,
-    //        minlength=User.VALIDATION_INFO.username.minLength,
-    //        maxlength=User.VALIDATION_INFO.username.maxLength,
-    //        pattern=User.VALIDATION_INFO.username.pattern.source,
-    //        title=User.VALIDATION_INFO.username.message,
-    //        value=username||'')
-    //    input(type='submit', value='Create')
-    //    if error
-    //        span.error &nbsp;#{error}
-    br
     form(action='', method='POST')
         p Create a new customer:
         input(type='text', name='firstname', placeholder='first name')
         br
         input(type='text', name='lastname', placeholder='last name')
-        input(type='submit', value='Create')
+        br
+        input(type='number', name='uuid', placeholder='id')
+        br
+        input(type='number', name='age', placeholder='age')
+        br
+        input(type='text', name='country', placeholder='country')
+        br
+        input(type='text', name='city', placeholder='city')
+        br
+        input(type='text', name='state', placeholder='state')
+        br
+        input(type='text', name='gender', placeholder='gender')
+        br
+        input(type='email', name='email', placeholder='email address')
+        br
+        +button("info", "/users", "small", "Add User")
         if error
             span.error &nbsp;#{error}
+
+        if users.length
+            p Here are the current users:
+            ul.users
+                for user in users
+                    li.user
+                        p firstname: #{user.firstname}
+        else
+            p There are no users currently.

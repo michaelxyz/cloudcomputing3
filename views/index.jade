@@ -1,27 +1,26 @@
+include  mixins
 extends layout
-
 block content
-    h1= title
-
+    +nav("Project name", "dropdown_menu")
+        +nav_item( "/", "active" ) Home
+        +nav_item( "/users" ) Insert User
+        +nav_item( "/users" ) Insert Product
+        +nav_item( "/users" ) Run Query
     p
-        | This is a template app showing the use of&nbsp;
-        a(href='http://www.neo4j.org/', target='_blank') Neo4j
-        |  from Node.js. It uses the&nbsp;
-        a(href='https://github.com/thingdom/node-neo4j', target='_blank') node-neo4j
-        |  library, available on npm as&nbsp;
-        code neo4j
-        .
-
+        | This is a tool that allows you to query user preferences using Neo4j graph DB.
     p.
-        This app is a simple social network manager: it lets you add and remove
-        users and "follows" relationships between them.
+        You can Add a user, Add a product and investigate connections between them.
+    .row
+        .col-md-4.col-sm-6.col-xs-12
+        .col-md-4.col-sm-6.col-xs-12
+        +panel("Add user", "success")) Adding a User is easy, simply log to this page
+            | enter deatils and submit.
+        +panel("Add product", "warning")) Adding a Product is also easy, simply log to this page
+            | enter deatils and submit.
+        +panel("Run a query", "info")) Running a query can be done by simply, simply log to this page
+            | enter deatils and submit
 
-    p
-        strong
-            | Get started:&nbsp;
-            a(href='/users') View all users
 
-    p
-        strong
-            | Customers page:&nbsp;
-            a(href='/customers') some message
+
+
+
