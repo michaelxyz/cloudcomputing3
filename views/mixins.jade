@@ -22,11 +22,7 @@ mixin button(style, size, textOnBtn)
          - size = "btn-sm"
       when "mini"
          - size = "btn-xs"
-<<<<<<< HEAD
    input(type='submit', class=["btn", "btn-" + style, size], value=textOnBtn)
-=======
-   input(type='submit', class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
->>>>>>> origin/master
          block
 
 //- Button mixin
@@ -40,17 +36,8 @@ mixin buttonBadge(style, type, size, textOnBtn)
          - size = "btn-sm"
       when "mini"
          - size = "btn-xs"
-<<<<<<< HEAD
    input(type=type, class=["btn", "btn-" + style, size], value=textOnBtn)
       block
-=======
-   input(type=type, class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
->>>>>>> origin/master
-
-      block
-
-
-
 
 //- Navbar mixins
 mixin nav(name, id, style)
