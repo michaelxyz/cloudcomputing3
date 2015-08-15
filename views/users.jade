@@ -5,7 +5,7 @@ block content
         .col-md-4.col-sm-6.col-xs-12
             +panel("Add user", "primary")) Adding a User is easy, simply log to this page
                 | enter deatils and submit.
-            form(action='', method='POST')
+            form(action='/addcustomer', method='POST')
                 p Create a new customer:
                 input(type='text', name='firstname', placeholder='first name')
                 br
@@ -33,15 +33,15 @@ block content
                 | enter deatils and submit.
                 form(action='/addproduct', method='POST')
                 p Create a new product:
-                input(type='text', name='firstname', placeholder='tag list')
+                input(type='text', name='taglist', placeholder='tag list')
                 br
-                input(type='text', name='lastname', placeholder='id')
+                input(type='text', name='uuid', placeholder='id')
                 br
-                input(type='number', name='uuid', placeholder='name')
+                input(type='number', name='name', placeholder='name')
                 br
-                input(type='number', name='age', placeholder='model')
+                input(type='number', name='model', placeholder='model')
                 br
-                input(type='text', name='country', placeholder='producer')
+                input(type='text', name='producer', placeholder='producer')
                 br
                 +button("info", "small", "Add Product")
                 if error
