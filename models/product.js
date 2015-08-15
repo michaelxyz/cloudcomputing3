@@ -278,50 +278,51 @@ User.get = function (username, callback) {
     });
 };
 
-User.getAll = function (callback) {
+Product.getAll = function (callback) {
     var query = [
-        'MATCH (user:User)',
-        'RETURN user',
+        'MATCH (pro:Product)',
+        'RETURN pro',
     ].join('\n');
 
     db.cypher({
         query: query,
     }, function (err, results) {
         if (err) return callback(err);
-        var users = results.map(function (result) {
-            return new User(result['user']);
+        var products = results.map(function (result) {
+            return new Product(result['pro']);
         });
-        callback(null, users);
+        callback(null, products);
     });
 };
 
 // Creates the user and persists (saves) it to the db, incl. indexing it:
-User.create = function (props, callback) {
+Product.create = function (props, callback) {
     var query = [
-        'CREATE (user:User {props})',
-        'RETURN user',
+        'CREATE (pro:Product {props})',
+        'RETURN pro',
     ].join('\n');
 
     var params = {
         props: validate(props)
+        //props: validate(props)
     };
 
     db.cypher({
         query: query,
         params: params,
     }, function (err, results) {
-        if (isConstraintViolation(err)) {
-            // TODO: This assumes username is the only relevant constraint.
-            // We could parse the constraint property out of the error message,
-            // but it'd be nicer if Neo4j returned this data semantically.
-            // Alternately, we could tweak our query to explicitly check first
-            // whether the username is taken or not.
-            err = new errors.ValidationError(
-                'The username ‘' + props.username + '’ is taken.');
-        }
+        //if (isConstraintViolation(err)) {
+        //    // TODO: This assumes username is the only relevant constraint.
+        //    // We could parse the constraint property out of the error message,
+        //    // but it'd be nicer if Neo4j returned this data semantically.
+        //    // Alternately, we could tweak our query to explicitly check first
+        //    // whether the username is taken or not.
+        //    err = new errors.ValidationError(
+        //        'The username ‘' + props.username + '’ is taken.');
+        //}
         if (err) return callback(err);
-        var user = new User(results[0]['user']);
-        callback(null, user);
+        var product = new Product(results[0]['product']);
+        callback(null, product);
     });
 };
 

@@ -36,7 +36,7 @@ app.get('/', routes.site.index);
 
 app.get('/users', routes.users.list);
 app.post('/addcustomer', routes.users.create);
-app.post('/addproduct', routes.users.create);
+app.post('/addproduct', routes.products.create);
 
 //app.get('/users/:username', routes.users.show);
 //app.post('/users/:username', routes.users.edit);
