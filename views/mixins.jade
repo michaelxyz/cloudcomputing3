@@ -25,7 +25,7 @@ mixin button(style, size, textOnBtn)
    input(type='submit', class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
          block
 
-//- Button mixin
+//- Button mixin - submit
 mixin buttonBadge(style, type, size, textOnBtn)
    - var style = (typeof style === 'undefined') ? "default" : style
    - var type = (typeof href === 'undefined') ? "#" : 'text'
@@ -37,7 +37,20 @@ mixin buttonBadge(style, type, size, textOnBtn)
       when "mini"
          - size = "btn-xs"
    input(type=type, class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
+      block
 
+//- Button mixin - href
+mixin buttonLink(style, href, size)
+   - var style = (typeof style === 'undefined') ? "default" : style
+   - var href = (typeof href === 'undefined') ? "#" : href
+   case size
+      when "large"
+         - size = "btn-lg"
+      when "small"
+         - size = "btn-sm"
+      when "mini"
+         - size = "btn-xs"
+   a( class=["btn", "btn-" + style, size], href=href)
       block
 
 
