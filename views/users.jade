@@ -32,20 +32,20 @@ block content
             +panel("Add product", "info")) Adding a Product is also easy, simply log to this page
                 | enter deatils and submit.
                 form(action='/addproduct', method='POST')
-                    p Create a new product:
-                    input(type='text', name='taglist', placeholder='tag list')
-                    br
-                    input(type='number', name='uuid', placeholder='id')
-                    br
-                    input(type='text', name='name', placeholder='name')
-                    br
-                    input(type='text', name='model', placeholder='model')
-                    br
-                    input(type='text', name='producer', placeholder='producer')
-                    br
-                    +button("info", "small", "Add Product")
-                    if error
-                        span.error &nbsp;#{error}
+                p Create a new product:
+                input(type='text', name='taglist', placeholder='tag list')
+                br
+                input(type='text', name='uuid', placeholder='id')
+                br
+                input(type='number', name='name', placeholder='name')
+                br
+                input(type='number', name='model', placeholder='model')
+                br
+                input(type='text', name='producer', placeholder='producer')
+                br
+                +button("info", "small", "Add Product")
+                if error
+                    span.error &nbsp;#{error}
         .col-md-4.col-sm-6.col-xs-12
         .col-md-4.col-sm-6.col-xs-12
             +panel("Run a query", "success")) Running a query can be done by simply, simply log to this page

@@ -69,10 +69,11 @@ exports.create = function (req, res, next) {
         console.log(i, req.body[i])
     }
     Product.create({
-        uuid: req.query.uuid,
-        model : req.query.model,
-        producer : req.query.producer,
-        taglist : req.query.taglist,
+        name: req.body.name,
+        uuid: req.body.uuid,
+        model : req.body.model,
+        producer : req.body.producer,
+        taglist : req.body.taglist,
     }, function (err, product) {
         //if (err) {
         //    if (err instanceof errors.ValidationError) {

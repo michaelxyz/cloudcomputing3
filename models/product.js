@@ -297,13 +297,14 @@ Product.getAll = function (callback) {
 
 // Creates the user and persists (saves) it to the db, incl. indexing it:
 Product.create = function (props, callback) {
+    console.log('Inside Product.create')
     var query = [
         'CREATE (pro:Product {props})',
         'RETURN pro',
     ].join('\n');
 
     var params = {
-        props: validate(props)
+        props: props
         //props: validate(props)
     };
 
