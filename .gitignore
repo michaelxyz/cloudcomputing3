@@ -8,3 +8,5 @@ npm-debug.log
 .idea/jsLibraryMappings.xml
 .idea/libraries/cloudcomputing3_node_modules.xml
 .idea/workspace.xml
+.idea/node-neo4j-template.iml
+.idea/workspace.xml
