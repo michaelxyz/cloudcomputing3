@@ -13,9 +13,8 @@ mixin panel(heading, style)
          block
 
 //- Button mixin
-mixin button(style, type, size, textOnBtn)
+mixin button(style, size, textOnBtn)
    - var style = (typeof style === 'undefined') ? "default" : style
-   - var type = (typeof href === 'undefined') ? "#" : 'text'
    case size
       when "large"
          - size = "btn-lg"
@@ -23,7 +22,7 @@ mixin button(style, type, size, textOnBtn)
          - size = "btn-sm"
       when "mini"
          - size = "btn-xs"
-   input(type=type, class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
+   input(type='submit', class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
          block
 
 //- Button mixin

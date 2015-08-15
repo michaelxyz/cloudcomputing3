@@ -25,46 +25,46 @@ block content
                 br
                 input(type='email', name='email', placeholder='email address')
                 br
-                +button("primary", "/users", "small", "Add User")
+                +button("primary", "small", "Add User")
                 if error
                     span.error &nbsp;#{error}
         .col-md-4.col-sm-6.col-xs-12
             +panel("Add product", "info")) Adding a Product is also easy, simply log to this page
                 | enter deatils and submit.
-            form(action='', method='POST')
-            p Create a new product:
-            input(type='text', name='firstname', placeholder='tag list')
-            br
-            input(type='text', name='lastname', placeholder='id')
-            br
-            input(type='number', name='uuid', placeholder='name')
-            br
-            input(type='number', name='age', placeholder='model')
-            br
-            input(type='text', name='country', placeholder='producer')
-            br
-            +button("info", "/users", "small", "Add Product")
-            if error
-                span.error &nbsp;#{error}
+                form(action='/addproduct', method='POST')
+                p Create a new product:
+                input(type='text', name='firstname', placeholder='tag list')
+                br
+                input(type='text', name='lastname', placeholder='id')
+                br
+                input(type='number', name='uuid', placeholder='name')
+                br
+                input(type='number', name='age', placeholder='model')
+                br
+                input(type='text', name='country', placeholder='producer')
+                br
+                +button("info", "small", "Add Product")
+                if error
+                    span.error &nbsp;#{error}
         .col-md-4.col-sm-6.col-xs-12
         .col-md-4.col-sm-6.col-xs-12
             +panel("Run a query", "success")) Running a query can be done by simply, simply log to this page
                 | enter deatils and submit
             form(action='', method='POST')
-            p Run Query:
-            input(type='text', name='firstname', placeholder='tag list')
-            br
-            input(type='text', name='lastname', placeholder='id')
-            br
-            input(type='number', name='uuid', placeholder='name')
-            br
-            input(type='number', name='age', placeholder='model')
-            br
-            input(type='text', name='country', placeholder='producer')
-            br
-            +button("success", "/users", "small", "Add Product")
-            if error
-                span.error &nbsp;#{error}
+                p Run Query:
+                input(type='text', name='firstname', placeholder='tag list')
+                br
+                input(type='text', name='lastname', placeholder='id')
+                br
+                input(type='number', name='uuid', placeholder='name')
+                br
+                input(type='number', name='age', placeholder='model')
+                br
+                input(type='text', name='country', placeholder='producer')
+                br
+                +button("success", "small", "Add Product")
+                if error
+                    span.error &nbsp;#{error}
 
 
 
