@@ -10,12 +10,16 @@ block content
         | This is a tool that allows you to query user preferences using Neo4j graph DB.
     p.
         You can Add a user, Add a product and investigate connections between them.
+    p Current DB Statistics
     .row
         .col-md-3.col-sm-6.col-xs-12
-            <button type="button" class="btn btn-primary">Primary <span class="badge">7</span></button>
+            span.badge Users: 10
         .col-md-3.col-sm-6.col-xs-12
-
+            span.badge Products: 30
         .col-md-3.col-sm-6.col-xs-12
+            span.badge Purchases: 100
+    p
+        +button("info", "small", "Get started")
 
 
 
