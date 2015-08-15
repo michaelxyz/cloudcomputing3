@@ -26,6 +26,24 @@ mixin button(style, type, size, textOnBtn)
    input(type=type, class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
          block
 
+//- Button mixin
+mixin buttonBadge(style, type, size, textOnBtn)
+   - var style = (typeof style === 'undefined') ? "default" : style
+   - var type = (typeof href === 'undefined') ? "#" : 'text'
+   case size
+      when "large"
+         - size = "btn-lg"
+      when "small"
+         - size = "btn-sm"
+      when "mini"
+         - size = "btn-xs"
+   input(type=type, class=["btn", "btn-" + style, size], name='lastname', placeholder='last name', value=textOnBtn)
+
+      block
+
+
+
+
 //- Navbar mixins
 mixin nav(name, id, style)
    - var style = (typeof style === 'undefined') ? "default" : style
