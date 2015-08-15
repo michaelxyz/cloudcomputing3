@@ -22,7 +22,7 @@ mixin button(style, size, textOnBtn)
          - size = "btn-sm"
       when "mini"
          - size = "btn-xs"
-   input(type='submit', class=["btn", "btn-" + style, size], placeholder='last name', value=textOnBtn)
+   input(type='submit', class=["btn", "btn-" + style, size], value=textOnBtn)
          block
 
 //- Button mixin - submit
@@ -36,7 +36,7 @@ mixin buttonBadge(style, type, size, textOnBtn)
          - size = "btn-sm"
       when "mini"
          - size = "btn-xs"
-   input(type=type, class=["btn", "btn-" + style, size], placeholder='last name', value=textOnBtn)
+   input(type=type, class=["btn", "btn-" + style, size], value=textOnBtn)
       block
 
 //- Button mixin - href
