@@ -161,7 +161,7 @@ Customer.prototype.del = function (callback) {
     // of any other types, which is good because we don't expect any.)
     var query = [
         'MATCH (cus:Customer {uuid: {uuid}})',
-        'OPTIONAL MATCH (user) -[rel:purchase]- (other)',
+        'OPTIONAL MATCH (cus) -[rel:purchase]- (product)',
         'DELETE cus, rel',
     ].join('\n')
 
@@ -177,25 +177,25 @@ Customer.prototype.del = function (callback) {
     });
 };
 
-//User.prototype.follow = function (other, callback) {
-//    var query = [
-//        'MATCH (user:User {username: {thisUsername}})',
-//        'MATCH (other:User {username: {otherUsername}})',
-//        'MERGE (user) -[rel:follows]-> (other)',
-//    ].join('\n')
-//
-//    var params = {
-//        thisUsername: this.username,
-//        otherUsername: other.username,
-//    };
-//
-//    db.cypher({
-//        query: query,
-//        params: params,
-//    }, function (err) {
-//        callback(err);
-//    });
-//};
+Customer.prototype.purchase = function (other, callback) {
+    var query = [
+        'MATCH (cus:Customer {uuid: {thisUuid}})',
+        'MATCH (product:Product {uuid: {productUuid}})',
+        'MERGE (cus) -[rel:purchase]-> (product)',
+    ].join('\n')
+
+    var params = {
+        thisUuid: this.uuid,
+        productUuid: other.uuid,
+    };
+
+    db.cypher({
+        query: query,
+        params: params,
+    }, function (err) {
+        callback(err);
+    });
+};
 
 //User.prototype.unfollow = function (other, callback) {
 //    var query = [
@@ -262,29 +262,29 @@ Customer.prototype.del = function (callback) {
 
 // Static methods:
 
-//User.get = function (username, callback) {
-//    var query = [
-//        'MATCH (user:User {username: {username}})',
-//        'RETURN user',
-//    ].join('\n')
-//
-//    var params = {
-//        username: username,
-//    };
-//
-//    db.cypher({
-//        query: query,
-//        params: params,
-//    }, function (err, results) {
-//        if (err) return callback(err);
-//        if (!results.length) {
-//            err = new Error('No such user with username: ' + username);
-//            return callback(err);
-//        }
-//        var user = new User(results[0]['user']);
-//        callback(null, user);
-//    });
-//};
+Customer.get = function (username, callback) {
+    var query = [
+        'MATCH (cus:Customer {uuid: {uuid}})',
+        'RETURN cus',
+    ].join('\n')
+
+    var params = {
+        uuid: uuid,
+    };
+
+    db.cypher({
+        query: query,
+        params: params,
+    }, function (err, results) {
+        if (err) return callback(err);
+        //if (!results.length) {
+        //    err = new Error('No such user with username: ' + username);
+        //    return callback(err);
+        //}
+        var customer = new Customer(results[0]['uuid']);
+        callback(null, customer);
+    });
+};
 
 Customer.getAll = function (callback) {
     console.log("Inside getAll")

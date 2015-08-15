@@ -113,7 +113,7 @@ product.prototype.patch = function (props, callback) {
     ].join('\n');
 
     var params = {
-        username: this.username,
+        uuid: this.uuid,
         props: props,
     };
 
@@ -153,12 +153,12 @@ Product.prototype.del = function (callback) {
     // of any other types, which is good because we don't expect any.)
     var query = [
         'MATCH (product:Product {uuid: {uuid}})',
-        'OPTIONAL MATCH (user) -[rel:follows]- (other)',
-        'DELETE user, rel',
+        'OPTIONAL MATCH (customer) -[rel:purchase]- (product)',
+        'DELETE product, rel',
     ].join('\n')
 
     var params = {
-        username: this.username,
+        uuid: this.uuid,
     };
 
     db.cypher({
@@ -169,46 +169,46 @@ Product.prototype.del = function (callback) {
     });
 };
 
-User.prototype.follow = function (other, callback) {
-    var query = [
-        'MATCH (user:User {username: {thisUsername}})',
-        'MATCH (other:User {username: {otherUsername}})',
-        'MERGE (user) -[rel:follows]-> (other)',
-    ].join('\n')
+//User.prototype.follow = function (other, callback) {
+//    var query = [
+//        'MATCH (user:User {username: {thisUsername}})',
+//        'MATCH (other:User {username: {otherUsername}})',
+//        'MERGE (user) -[rel:follows]-> (other)',
+//    ].join('\n')
+//
+//    var params = {
+//        thisUsername: this.username,
+//        otherUsername: other.username,
+//    };
+//
+//    db.cypher({
+//        query: query,
+//        params: params,
+//    }, function (err) {
+//        callback(err);
+//    });
+//};
 
-    var params = {
-        thisUsername: this.username,
-        otherUsername: other.username,
-    };
-
-    db.cypher({
-        query: query,
-        params: params,
-    }, function (err) {
-        callback(err);
-    });
-};
-
-User.prototype.unfollow = function (other, callback) {
-    var query = [
-        'MATCH (user:User {username: {thisUsername}})',
-        'MATCH (other:User {username: {otherUsername}})',
-        'MATCH (user) -[rel:follows]-> (other)',
-        'DELETE rel',
-    ].join('\n')
-
-    var params = {
-        thisUsername: this.username,
-        otherUsername: other.username,
-    };
-
-    db.cypher({
-        query: query,
-        params: params,
-    }, function (err) {
-        callback(err);
-    });
-};
+//User.prototype.unfollow = function (other, callback) {
+//    var query = [
+//        'MATCH (user:User {username: {thisUsername}})',
+//        'MATCH (other:User {username: {otherUsername}})',
+//        'MATCH (user) -[rel:follows]-> (other)',
+//        'DELETE rel',
+//    ].join('\n')
+//
+//    var params = {
+//        thisUsername: this.username,
+//        otherUsername: other.username,
+//    };
+//
+//    db.cypher({
+//        query: query,
+//        params: params,
+//    }, function (err) {
+//        callback(err);
+//    });
+//};
 
 // Calls callback w/ (err, following, others), where following is an array of
 // users this user follows, and others is all other users minus him/herself.

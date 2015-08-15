@@ -5,3 +5,6 @@ npm-debug.log
 
 /neo4j-*
 /neo4j
+.idea/jsLibraryMappings.xml
+.idea/libraries/cloudcomputing3_node_modules.xml
+.idea/workspace.xml

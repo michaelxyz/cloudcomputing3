@@ -4,7 +4,6 @@
 var URL = require('url');
 
 var errors = require('../models/errors');
-var User = require('../models/user');
 var Customer = require('../models/customer');
 
 
@@ -68,7 +67,11 @@ exports.list = function (req, res, next) {
  * POST /users {username, ...}
  */
 exports.create = function (req, res, next) {
-    console.log('Creating new customer')
+    console.log('Creating new customer');
+    for (i in req.body){
+        console.log(i)
+    }
+    //console.log(req.body.name);
     Customer.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -173,12 +176,12 @@ exports.del = function (req, res, next) {
 /**
  * POST /users/:username/follow {otherUsername}
  */
-exports.follow = function (req, res, next) {
-    User.get(req.params.username, function (err, user) {
+exports.purchase = function (req, res, next) {
+    Customer.get(req.params.uuid, function (err, user) {
         // TODO: Gracefully handle "no such user" error somehow.
         // This is the source user, so e.g. 404 page?
         if (err) return next(err);
-        User.get(req.body.otherUsername, function (err, other) {
+        Customer.get(req.body.otherUsername, function (err, other) {
             // TODO: Gracefully handle "no such user" error somehow.
             // This is the target user, so redirect back to the source user w/
             // an info message?
