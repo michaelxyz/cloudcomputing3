@@ -33,15 +33,15 @@ block content
                 | enter deatils and submit.
                 form(action='/addproduct', method='POST')
                     p Create a new product:
-                    input(type='text', name='firstname', placeholder='tag list')
+                    input(type='text', name='taglist', placeholder='tag list')
                     br
-                    input(type='text', name='lastname', placeholder='id')
+                    input(type='number', name='uuid', placeholder='id')
                     br
-                    input(type='number', name='uuid', placeholder='name')
+                    input(type='text', name='name', placeholder='name')
                     br
-                    input(type='number', name='age', placeholder='model')
+                    input(type='text', name='model', placeholder='model')
                     br
-                    input(type='text', name='country', placeholder='producer')
+                    input(type='text', name='producer', placeholder='producer')
                     br
                     +button("info", "small", "Add Product")
                     if error
