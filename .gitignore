@@ -16,3 +16,5 @@ npm-debug.log
 *.xml
 
 *.xml
+
+.idea/node-neo4j-template.iml
