@@ -2,8 +2,11 @@ include mixins
 extends layout
 block content
     .row
+        .col-md-11.col-sm-6.col-xs-12
+            +panel("Add Data", "warning") Simply Insert Details in the relevant form:
+    .row
         .col-md-3.col-sm-6.col-xs-12
-            +panel("Create new customer", "primary") Insert Details:
+            +panel("Create new customer", "primary")
                 form(action='/addcustomer', method='POST')
                     input(type='text', name='firstname', placeholder='first name')
                     br
@@ -27,7 +30,7 @@ block content
                     if error
                         span.error &nbsp;#{error}
         .col-md-3.col-sm-6.col-xs-12
-            +panel("Add new product", "info") Insert Details:
+            +panel("Add new product", "info")
                 form(action='/addproduct', method='POST')
                 input(type='text', name='taglist', placeholder='tag list')
                 br
@@ -42,9 +45,8 @@ block content
                 +button("info", "small", "Add Product")
                 if error
                     span.error &nbsp;#{error}
-        .col-md-4.col-sm-6.col-xs-12
         .col-md-3.col-sm-6.col-xs-12
-            +panel("Add Product Category", "success") Insert Details:
+            +panel("Add Product Category", "success")
                 form(action='/addCategory', method='POST')
                     input(type='text', name='category', placeholder='category')
                     br
@@ -52,14 +54,34 @@ block content
                     if error
                         span.error &nbsp;#{error}
 
-
-
-
-        //if users.length
-        //    p Here are the current users:
-        //    ul.users
-        //        for user in users
-        //            li.user
-        //                p firstname: #{user.firstname}
-        //else
-        //    p There are no users currently.
+    .row
+        .col-md-5.col-sm-6.col-xs-12
+            +panel("Add Purcahse", "primary") Purcahse
+                form(action='/addCategory', method='POST')
+                    input(type='number', name='price', placeholder='price')
+                    input(type='number', name='discountRate', placeholder='Discount Rate')
+                    input(type='date', name='date', placeholder='Date')
+                    input(type='text', name='currency', placeholder='Currency')
+                    br
+                    +button("primary", "mini", "Add Purcahse")
+                    if error
+                        span.error &nbsp;#{error}
+        .col-md-5.col-sm-6.col-xs-12
+            +panel("Connect Category to a Product", "info")
+                form(action='/addCategory', method='POST')
+                    input(type='text', name='productname', placeholder='product name')
+                    p
+                    input(type='text', name='category', placeholder='category')
+                    br
+                    +button("info", "mini", "Connect Category")
+                    if error
+                        span.error &nbsp;#{error}
+    p users list:
+    if users.length
+        p Here are the current users:
+        ul.users
+            for user in users
+                li.user
+                    p firstname: #{user.firstname}
+    else
+        p There are no users currently.

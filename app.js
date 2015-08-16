@@ -31,8 +31,10 @@ app.locals({
 });
 
 // Routes
-
 app.get('/', routes.site.index);
+app.get('/getdata', routes.site.getData);
+app.get('/dbstat', routes.site.DBstats);
+app.get('/about', routes.site.about);
 
 app.get('/users', routes.users.list);
 app.post('/addcustomer', routes.users.create);

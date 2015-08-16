@@ -1,0 +1,22 @@
+include mixins
+extends layout
+block content
+   p
+   +listGroup("list")
+      +listItem("active") Cras justo odio
+      +listItem Dapibus ac facilisis in
+      +listItem Morbi leo risus
+      +listItem Dapibus ac facilisis in
+      +listItem Morbi leo risus
+      +listItem Dapibus ac facilisis in
+   p
+      +listGroup("links")
+         +listItem("link1.html", "active")
+            +listHeading List group item heading
+            +listText Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+         +listItem("link2.html")
+            +listHeading List group item heading
+            +listText Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+         +listItem("link3.html")
+            +listHeading List group item heading
+            +listText Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.

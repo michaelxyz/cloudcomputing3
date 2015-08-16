@@ -26,6 +26,21 @@ mixin button(style, size, textOnBtn)
          block
 
 //- Button mixin
+mixin buttonLink(style, href, size,textOnBtn)
+   - var style = (typeof style === 'undefined') ? "default" : style
+   - var href = (typeof href === 'undefined') ? "#" : href
+   case size
+      when "large"
+         - size = "btn-lg"
+      when "small"
+         - size = "btn-sm"
+      when "mini"
+         - size = "btn-xs"
+   a(class=["btn", "btn-" + style, size], href=href)=textOnBtn
+      block
+
+
+//- Button mixin
 mixin buttonBadge(style, type, size, textOnBtn)
    - var style = (typeof style === 'undefined') ? "default" : style
    - var type = (typeof href === 'undefined') ? "#" : 'text'
@@ -49,7 +64,6 @@ mixin nav(name, id, style)
             span.icon-bar
             span.icon-bar
             span.icon-bar
-         a.navbar-brand(href="/")= name
          .collapse.navbar-collapse( id=id )
          ul.nav.navbar-nav
             block
@@ -72,3 +86,32 @@ mixin nav_header
    li.dropdown-header
       block
    //- End navbar mixins
+
+//- List group mixins
+- var groupType
+mixin listGroup(type)
+   - groupType = type
+   case groupType
+      when 'list'
+         ul.list-group
+            block
+      default
+         .list-group
+            block
+mixin listItem(arg1, arg2)
+   case groupType
+      when 'list'
+         li( class=["list-group-item", arg1] )
+            block
+      when 'links'
+         a( href=arg1, class=["list-group-item", arg2] )
+            block
+      default
+         .list-group-item( class=["list-group-item", arg1] )
+            block
+mixin listHeading
+   h4.list-group-item-heading
+      block
+mixin listText
+   .list-group-item-text
+      block

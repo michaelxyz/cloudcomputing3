@@ -11,11 +11,19 @@ html
 
   body(style="padding-bottom:10rem; padding-left:2rem;padding-top:1rem;")
       .container
-      +bootswatch("flatly") //change theme here
+      +bootswatch("yeti") //change theme here
       script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
       script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+      block navbar
+          +nav("Neo4j Customer - Product Query Tool", "dropdown_menu")
+              +nav_item( "/", "active" ) Home
+              +nav_item( "/users" ) Add Data
+              +nav_item( "/getData" ) Extract Data
+              +nav_item( "/dbstat" ) DB Statistics
+              +nav_item( "/about" ) About
       block content
-          script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
-          script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+
+
+
 
 

@@ -1,25 +1,32 @@
 include  mixins
 extends layout
 block content
-    +nav("Project name", "dropdown_menu")
-        +nav_item( "/", "active" ) Home
-        +nav_item( "/users" ) Insert User
-        +nav_item( "/users" ) Insert Product
-        +nav_item( "/users" ) Run Query
-    p
-        | This is a tool that allows you to query user preferences using Neo4j graph DB.
-    p.
-        You can Add a user, Add a product and investigate connections between them.
-    p Current DB Statistics
-    .row
-        .col-md-3.col-sm-6.col-xs-12
-            span.badge Users: 10
-        .col-md-3.col-sm-6.col-xs-12
-            span.badge Products: 30
-        .col-md-3.col-sm-6.col-xs-12
-            span.badge Purchases: 100
-    p
-        +button("info", "small", "Get started")
+    .jumbotron
+
+            h1 Welcome!
+            h3 Using this tool you can:
+                h4 &nbsp; + Maintain Customer - Product DB with Neo4j graph DB.
+                h4 &nbsp; + Query user preferences with a friendly UI
+            p
+            p: +buttonLink("info", "/users", "small", 'Get started')
+
+
+
+
+    //
+    //p    This is a tool that allows you to query user preferences using Neo4j graph DB.
+    //p.
+    //    You can Add a user, Add a product and investigate connections between them.
+    //p Current DB Statistics
+    //
+    //p.row
+    //    .col-md-3.col-sm-6.col-xs-12
+    //        span.badge Users: 10
+    //    .col-md-3.col-sm-6.col-xs-12
+    //        span.badge Products: 30
+    //    .col-md-3.col-sm-6.col-xs-12
+    //        span.badge Purchases: 100
+
 
 
 

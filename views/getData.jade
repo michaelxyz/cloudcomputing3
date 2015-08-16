@@ -1,0 +1,35 @@
+include mixins
+extends layout
+block content
+   .row
+      .col-md-11.col-sm-6.col-xs-12
+         +panel("Extract Data", "primary") Query DB for interesting connection
+   .row
+      .col-md-5.col-sm-6.col-xs-12
+         +panel("Users + Categories", "warning") Find Users According to Categories
+            form(action='/addCategory', method='POST')
+               input(type='number', name='category1', placeholder='category')
+               input(type='number', name='discountRate', placeholder='+')
+               +button("warning", "mini", "Send")
+      .col-md-5.col-sm-6.col-xs-12
+         +panel("Users + Categories", "warning") Find Users According to Categories
+            form(action='/addCategory', method='POST')
+               input(type='number', name='category1', placeholder='category')
+               input(type='number', name='discountRate', placeholder='+')
+               +button("warning", "mini", "Send")
+   .row
+      .col-md-5.col-sm-6.col-xs-12
+         +panel("Users + Categories", "danger") Find Users According to Categories
+            form(action='/addCategory', method='POST')
+               input(type='number', name='category1', placeholder='category')
+               input(type='number', name='discountRate', placeholder='+')
+               +button("danger", "mini", "Send")
+      .col-md-5.col-sm-6.col-xs-12
+         +panel("Users + Categories", "danger") Find Users According to Categories
+            form(action='/addCategory', method='POST')
+               input(type='number', name='category1', placeholder='category')
+               input(type='number', name='discountRate', placeholder='+')
+               +button("danger", "mini", "Send")
+
+
+
