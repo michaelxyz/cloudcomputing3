@@ -14,9 +14,9 @@ npm-debug.log
 *.iml
 
 *.xml
-
-*.xml
-
+*.idea
 .idea/node-neo4j-template.iml
+
+.idea/workspace.xml
 
 .idea/workspace.xml
