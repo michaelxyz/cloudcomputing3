@@ -11,6 +11,43 @@ function getUserURL(user) {
     return '/users/' + encodeURIComponent(user.username);
 }
 
+///**
+// * GET /dbstats
+// */
+//exports.getStats = function (req, res, next) {
+//    Customer.countAll(function (err, count) {
+//        console.log("Inside Customer: countAll")
+//        if (err) return next(err);
+//        res.render('dbstatistics', {
+//            CustomerCount: count
+//        });
+//    });
+//};
+
+/**
+ * GET /dbstats
+ */
+exports.getStats = function (req, res, next) {
+    Customer.getAll(function (err, customers) {
+        console.log("Inside Customer.getAll")
+        if (err) return next(err);
+        res.render('dbstatistics', {
+            Customer: Customer,
+            users: customers,
+            firstname: req.query.firstname,   // Support pre-filling create form
+            lastname : req.query.lastname,
+            uuid : req.query.uuid,
+            age : req.query.age,
+            country : req.query.country,
+            city: req.query.city,
+            state: req.query.state,
+            gender: req.query.gender,
+            email: req.query.email,
+            error: req.query.error,     // Errors creating; see create route
+        });
+    });
+};
+
 /**
  * GET /users
  */

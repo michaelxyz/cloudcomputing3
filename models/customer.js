@@ -138,7 +138,7 @@ Customer.prototype.patch = function (props, callback) {
         //    // Alternately, we could tweak our query to explicitly check first
         //    // whether the username is taken or not.
         //    err = new errors.ValidationError(
-        //        'The username ‘' + props.username + '’ is taken.');
+        //        'The username ï¿½' + props.username + 'ï¿½ is taken.');
         //}
         if (err) return callback(err);
 
@@ -287,7 +287,7 @@ Customer.get = function (username, callback) {
 };
 
 Customer.getAll = function (callback) {
-    console.log("Inside getAll")
+    console.log("Inside getAll Customers")
     var query = [
         'MATCH (cus:Customer)',
         'RETURN cus',
@@ -302,6 +302,24 @@ Customer.getAll = function (callback) {
         });
         console.log(customers)
         callback(null, customers);
+    });
+};
+
+
+
+Customer.countAll = function (callback) {
+    console.log("Inside getAll Customers")
+    var query = [
+        'MATCH (cus:Customer)',
+        'RETURN COUNT(cus)',
+    ].join('\n');
+
+    db.cypher({
+        query: query,
+    }, function (err, results) {
+        if (err) return callback(err);
+        console.log("results: " + results);
+        callback(null, results);
     });
 };
 
@@ -329,7 +347,7 @@ Customer.create = function (props, callback) {
         //    // Alternately, we could tweak our query to explicitly check first
         //    // whether the username is taken or not.
         //    err = new errors.ValidationError(
-        //        'The username ‘' + props.username + '’ is taken.');
+        //        'The username ï¿½' + props.username + 'ï¿½ is taken.');
         //}
         if (err) return callback(err);
         //var user = new User(results[0]['cus']);
