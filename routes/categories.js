@@ -7,7 +7,6 @@ var URL = require('url');
 var errors = require('../models/errors');
 var Category = require('../models/category');
 
-
 function getUserURL(user) {
     return '/users/' + encodeURIComponent(user.username);
 }

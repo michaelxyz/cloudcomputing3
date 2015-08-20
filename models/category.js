@@ -39,7 +39,7 @@ Category.VALIDATION_INFO = {
 // Public instance properties:
 
 // The user's username, e.g. 'aseemk'.
-Object.defineProperty(Product.prototype, 'name', {
+Object.defineProperty(Category.prototype, 'name', {
     get: function () { return this._node.properties['name']; }
 });
 
@@ -104,7 +104,7 @@ function isConstraintViolation(err) {
 
 // Atomically updates this user, both locally and remotely in the db, with the
 // given property updates.
-Product.prototype.patch = function (props, callback) {
+Category.prototype.patch = function (props, callback) {
     //var safeProps = validate(props);
 
     var query = [
