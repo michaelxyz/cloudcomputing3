@@ -31,20 +31,20 @@ block content
                         span.error &nbsp;#{error}
         .col-md-3.col-sm-6.col-xs-12
             +panel("Add new product", "info")
-                form(action='/addproduct', method='POST')
-                input(type='number', name='uuid', placeholder='id')
-                br
-                input(type='text', name='name', placeholder='name')
-                br
-                input(type='text', name='model', placeholder='model')
-                br
-                input(type='text', name='producer', placeholder='producer')
-                br
-                +button("info", "small", "Add Product")
-                if error
-                    span.error &nbsp;#{error}
+                form(action='/addcustomer', method='POST')
+                    input(type='number', name='uuid', placeholder='id')
+                    br
+                    input(type='text', name='name', placeholder='name')
+                    br
+                    input(type='text', name='model', placeholder='model')
+                    br
+                    input(type='text', name='producer', placeholder='producer')
+                    br
+                    +button("info", "small", "Add Product")
+                    if error
+                        span.error &nbsp;#{error}
         .col-md-3.col-sm-6.col-xs-12
-            +panel("duct Category", "success")
+            +panel("Product Category", "success")
                 form(action='/addCategory', method='POST')
                     input(type='text', name='category', placeholder='category')
                     br
