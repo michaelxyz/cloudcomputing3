@@ -55,7 +55,7 @@ block content
     .row
         .col-md-5.col-sm-6.col-xs-12
             +panel("Add Purcahse", "primary")
-                form(action='/addCategory', method='POST')
+                form(action='/addCategory1', method='POST')
                     p Select a customer by ID:
                     select
                         for item in customers
@@ -72,7 +72,7 @@ block content
                         span.error &nbsp;#{error}
         .col-md-5.col-sm-6.col-xs-12
             +panel("Connect Category to a Product", "info")
-                form(action='/addCategory', method='POST')
+                form(action='/temp2', method='POST')
                     p Select a category:
                     select(id="category", name="category")
                         for item in customers
