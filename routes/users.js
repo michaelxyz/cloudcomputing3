@@ -52,14 +52,11 @@ exports.getStats = function (req, res, next) {
  * GET /users
  */
 exports.list = function (req, res, next) {
-    Customer.getAll(function (err, users) {
-        console.log("Inside Customer.getAll")
-        console.log(users)
-        console.log(users[0])
+    Customer.getAll(function (err, customers) {
         if (err) return next(err);
         res.render('users', {
             Customer: Customer,
-            users: users,
+            customers: customers,
             firstname: req.query.firstname,   // Support pre-filling create form
             lastname : req.query.lastname,
             uuid : req.query.uuid,
