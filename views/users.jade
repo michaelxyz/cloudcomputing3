@@ -55,7 +55,7 @@ block content
     .row
         .col-md-5.col-sm-6.col-xs-12
             +panel("Add Purcahse", "primary")
-                form(action='/addCategory1', method='POST')
+                form(action='/addpurchase', method='POST')
                     p Select a customer by ID:
                     select
                         for item in customers
@@ -72,15 +72,15 @@ block content
                         span.error &nbsp;#{error}
         .col-md-5.col-sm-6.col-xs-12
             +panel("Connect Category to a Product", "info")
-                form(action='/temp2', method='POST')
+                form(action='/bla ', method='POST')
                     p Select a category:
                     select(id="category", name="category")
-                        for item in customers
-                            option(selected="true") #{item._node.properties.firstname}
+                        for item in categories
+                            option(selected="true") #{item._node.properties.name}
                     p Select a product:
                     select
-                        for item in customers
-                            option(selected="true") #{item._node.properties.uuid}
+                        for item in products
+                            option(selected="true") #{item._node.properties.name}
                     p
                     input(type='text', name='productname', placeholder='product name')
 
@@ -91,14 +91,4 @@ block content
                     if error
                         span.error &nbsp;#{error}
 
-    //p users list:
-    //    if customers.length
-    //        p Here are the current users:
-    //            for customer in customers
-    //                li.customer
-    //                    p id:  #{customer._node.properties.uuid}
-    //                    p first name:  #{customer._node.properties.lastname}
-    //                    p age:  #{customer._node.properties.firstname}
-    //    else
-    //       p There are no users currently.
 
