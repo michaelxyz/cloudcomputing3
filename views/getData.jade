@@ -1,35 +1,97 @@
 include mixins
 extends layout
 block content
-   .row
-      .col-md-11.col-sm-6.col-xs-12
-         +panel("Extract Data", "primary") Query DB for interesting connection
-   .row
-      .col-md-5.col-sm-6.col-xs-12
-         +panel("Users + Categories", "warning") Find Users According to Categories
-            form(action='/addCategory', method='POST')
-               input(type='number', name='category1', placeholder='category')
-               input(type='number', name='discountRate', placeholder='+')
-               +button("warning", "mini", "Send")
-      .col-md-5.col-sm-6.col-xs-12
-         +panel("Users + Categories", "warning") Find Users According to Categories
-            form(action='/addCategory', method='POST')
-               input(type='number', name='category1', placeholder='category')
-               input(type='number', name='discountRate', placeholder='+')
-               +button("warning", "mini", "Send")
+   H3 Extract Data - Query DB for interesting connections
+   p
+   p
    .row
       .col-md-5.col-sm-6.col-xs-12
-         +panel("Users + Categories", "danger") Find Users According to Categories
-            form(action='/addCategory', method='POST')
-               input(type='number', name='category1', placeholder='category')
-               input(type='number', name='discountRate', placeholder='+')
-               +button("danger", "mini", "Send")
+         +panel("[1] Find Hottest category in a given date", "info")
+            form(action='/query1', method='POST')
+               input(type='date', name='date', placeholder='date')
+               +button("default", "mini", "Send")
+            p
+            p Hotest category in {date}  is {category}:
       .col-md-5.col-sm-6.col-xs-12
-         +panel("Users + Categories", "danger") Find Users According to Categories
+         +panel("[2] Similar users purchases:", "info")
             form(action='/addCategory', method='POST')
-               input(type='number', name='category1', placeholder='category')
-               input(type='number', name='discountRate', placeholder='+')
-               +button("danger", "mini", "Send")
-
-
-
+               p Select a customer by ID: {add iselect field}
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most similar user also ordered: {products list}
+   .row
+      .col-md-5.col-sm-6.col-xs-12
+         +panel("[3] Find most common categories that go together", "primary")
+            form(action='/query1', method='POST')
+               input(type='date', name='date', placeholder='date')
+               +button("default", "mini", "Send")
+            p
+            p Hotest category in {date}  is {category}:
+      .col-md-5.col-sm-6.col-xs-12
+         +panel("[4] Similar users purchases:", "primary")
+            form(action='/addCategory', method='POST')
+               p Select a customer by ID: +add iselect field
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most similar user also ordered: {products list}
+   .row
+      .col-md-5.col-sm-2.col-xs-2
+         +panel("[5] Most popular category:", "success")
+            form(action='/addCategory', method='POST')
+               p Select a customer by ID: +add iselect field
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most popular category is{products list}
+      .col-md-5.col-sm-2.col-xs-2
+         +panel("[5] Most popular category:", "success")
+            form(action='/addCategory', method='POST')
+               p Select a customer by ID: +add iselect field
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most popular category is{products list}
+   .row
+      .col-md-5.col-sm-2.col-xs-2
+         +panel("[5] Most popular category:", "warning")
+            form(action='/addCategory', method='POST')
+               p Select a customer by ID: +add iselect field
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most popular category is{products list}
+      .col-md-5.col-sm-2.col-xs-2
+         +panel("[5] Most popular category:", "warning")
+            form(action='/addCategory', method='POST')
+               p Select a customer by ID: +add iselect field
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most popular category is{products list}
+   .row
+      .col-md-5.col-sm-2.col-xs-2
+         +panel("[5] Most popular category:", "danger")
+            form(action='/addCategory', method='POST')
+               p Select a customer by ID: +add iselect field
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most popular category is{products list}
+      .col-md-5.col-sm-2.col-xs-2
+         +panel("[5] Most popular category:", "danger")
+            form(action='/addCategory', method='POST')
+               p Select a customer by ID: +add iselect field
+                  //select
+                  //   for item in customers
+                  //      option(selected="true") #{item._node.properties.uuid
+               +button("default", "mini", "Send")
+            p The most popular category is{products list}
