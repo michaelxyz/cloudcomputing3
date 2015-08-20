@@ -77,11 +77,13 @@ block content
                     if error
                         span.error &nbsp;#{error}
     p users list:
+
     if users.length
         p Here are the current users:
         ul.users
-            for user in users
-                li.user
-                    p firstname: #{user.firstname}
+            for customer in users
+                li.customer
+                    p firstname: #{customer.uuid} #{customer.firstname} #{customer.lastname}
+                    p firstname:  #{customer.country}
     else
         p There are no users currently.
