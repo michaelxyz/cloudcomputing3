@@ -114,7 +114,7 @@ Customer.prototype.patch = function (props, callback) {
     //var safeProps = validate(props);
 
     var query = [
-        'MATCH (cus:User {firstname: {firstname}, {lasttname: {lastname}})',
+        'MATCH (cus:User {firstname: {firstname}, {lastname: {lastname}})',
         'SET cus += {props}',
         'RETURN cus',
     ].join('\n');
@@ -161,7 +161,7 @@ Customer.prototype.del = function (callback) {
     // of any other types, which is good because we don't expect any.)
     var query = [
         'MATCH (cus:Customer {uuid: {uuid}})',
-        'OPTIONAL MATCH (cus) -[rel:purchase]- (product)',
+        'OPTIONAL MATCH (cus) -[rel:Purchase]- (product)',
         'DELETE cus, rel',
     ].join('\n')
 
@@ -181,7 +181,7 @@ Customer.prototype.purchase = function (other, callback) {
     var query = [
         'MATCH (cus:Customer {uuid: {thisUuid}})',
         'MATCH (product:Product {uuid: {productUuid}})',
-        'MERGE (cus) -[rel:purchase]-> (product)',
+        'MERGE (cus) -[rel:Purchase]-> (product)',
     ].join('\n')
 
     var params = {
@@ -262,7 +262,7 @@ Customer.prototype.purchase = function (other, callback) {
 
 // Static methods:
 
-Customer.get = function (username, callback) {
+Customer.get = function (uuid, callback) {
     var query = [
         'MATCH (cus:Customer {uuid: {uuid}})',
         'RETURN cus',
@@ -287,7 +287,6 @@ Customer.get = function (username, callback) {
 };
 
 Customer.getAll = function (callback) {
-    console.log("Inside getAll Customers")
     var query = [
         'MATCH (cus:Customer)',
         'RETURN cus',
@@ -300,7 +299,6 @@ Customer.getAll = function (callback) {
         var customers = results.map(function (result) {
             return new Customer(result['cus']);
         });
-        console.log(customers)
         callback(null, customers);
     });
 };

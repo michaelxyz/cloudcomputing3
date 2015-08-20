@@ -153,7 +153,7 @@ Product.prototype.del = function (callback) {
     // of any other types, which is good because we don't expect any.)
     var query = [
         'MATCH (product:Product {uuid: {uuid}})',
-        'OPTIONAL MATCH (customer) -[rel:purchase]- (product)',
+        'OPTIONAL MATCH (customer) -[rel:Purchase]- (product)',
         'DELETE product, rel',
     ].join('\n')
 
@@ -254,14 +254,14 @@ Product.prototype.getFollowingAndOthers = function (callback) {
 
 // Static methods:
 
-Product.get = function (username, callback) {
+Product.get = function (uuid, callback) {
     var query = [
-        'MATCH (user:User {username: {username}})',
+        'MATCH (pro:Product {uuid: {username}})',
         'RETURN user',
     ].join('\n')
 
     var params = {
-        username: username,
+        uuid: uuid,
     };
 
     db.cypher({
@@ -273,7 +273,7 @@ Product.get = function (username, callback) {
             err = new Error('No such user with username: ' + username);
             return callback(err);
         }
-        var user = new User(results[0]['user']);
+        var product = new Product(results[0]['uuid']);
         callback(null, user);
     });
 };

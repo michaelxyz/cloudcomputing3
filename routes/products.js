@@ -25,7 +25,6 @@ exports.list = function (req, res, next) {
             uuid: req.query.uuid,   // Support pre-filling create form
             model : req.query.modell,
             producer : req.query.producer,
-            taglist : req.query.taglist,
             error: req.query.error,     // Errors creating; see create route
         });
     });
@@ -67,15 +66,11 @@ exports.list = function (req, res, next) {
 exports.create = function (req, res, next) {
     console.log('Creating new product');
     // TODO - remove
-    for (i in req.body){
-        console.log(i, req.body[i])
-    }
     Product.create({
         name: req.body.name,
         uuid: req.body.uuid,
         model : req.body.model,
         producer : req.body.producer,
-        taglist : req.body.taglist,
     }, function (err, product) {
         //if (err) {
         //    if (err instanceof errors.ValidationError) {
@@ -102,7 +97,7 @@ exports.create = function (req, res, next) {
  * GET /users/:username
  */
 exports.show = function (req, res, next) {
-    User.get(req.params.username, function (err, user) {
+    Product.get(req.params.uuid, function (err, user) {
         // TODO: Gracefully "no such user" error. E.g. 404 page.
         if (err) return next(err);
         // TODO: Also fetch and show followers? (Not just follow*ing*.)
@@ -170,7 +165,7 @@ exports.del = function (req, res, next) {
  * POST /users/:username/follow {otherUsername}
  */
 exports.purchase = function (req, res, next) {
-    Customer.get(req.params.uuid, function (err, user) {
+    Customer.get(req.params.uuid, function (err, customer) {
         // TODO: Gracefully handle "no such user" error somehow.
         // This is the source user, so e.g. 404 page?
         if (err) return next(err);
@@ -179,32 +174,32 @@ exports.purchase = function (req, res, next) {
             // This is the target user, so redirect back to the source user w/
             // an info message?
             if (err) return next(err);
-            user.follow(other, function (err) {
+            customer.purchase(other, function (err) {
                 if (err) return next(err);
-                res.redirect(getUserURL(user));
+                //res.redirect(getUserURL(user));
             });
         });
     });
 };
 
-/**
- * POST /users/:username/unfollow {otherUsername}
- */
-exports.unfollow = function (req, res, next) {
-    User.get(req.params.username, function (err, user) {
-        // TODO: Gracefully handle "no such user" error somehow.
-        // This is the source user, so e.g. 404 page?
-        if (err) return next(err);
-        User.get(req.body.otherUsername, function (err, other) {
-            // TODO: Gracefully handle "no such user" error somehow.
-            // This is the target user, so redirect back to the source user w/
-            // an info message?
-            if (err) return next(err);
-            user.unfollow(other, function (err) {
-                if (err) return next(err);
-                res.redirect(getUserURL(user));
-            });
-        });
-    });
-};
+///**
+// * POST /users/:username/unfollow {otherUsername}
+// */
+//exports.unfollow = function (req, res, next) {
+//    User.get(req.params.username, function (err, user) {
+//        // TODO: Gracefully handle "no such user" error somehow.
+//        // This is the source user, so e.g. 404 page?
+//        if (err) return next(err);
+//        User.get(req.body.otherUsername, function (err, other) {
+//            // TODO: Gracefully handle "no such user" error somehow.
+//            // This is the target user, so redirect back to the source user w/
+//            // an info message?
+//            if (err) return next(err);
+//            user.unfollow(other, function (err) {
+//                if (err) return next(err);
+//                res.redirect(getUserURL(user));
+//            });
+//        });
+//    });
+//};
 
