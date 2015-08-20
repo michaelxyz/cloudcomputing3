@@ -8,11 +8,11 @@ block content
         .col-md-3.col-sm-6.col-xs-12
             +panel("Create new customer", "primary")
                 form(action='/addcustomer', method='POST')
-                    input(type='text', name='firstname', placeholder='first name')
+                    input(type='number', name='uuid', placeholder='id')
                     br
                     input(type='text', name='lastname', placeholder='last name')
                     br
-                    input(type='number', name='uuid', placeholder='id')
+                    input(type='text', name='firstname', placeholder='first name')
                     br
                     input(type='number', name='age', placeholder='age')
                     br
@@ -32,13 +32,11 @@ block content
         .col-md-3.col-sm-6.col-xs-12
             +panel("Add new product", "info")
                 form(action='/addproduct', method='POST')
-                input(type='text', name='taglist', placeholder='tag list')
+                input(type='number', name='uuid', placeholder='id')
                 br
-                input(type='text', name='uuid', placeholder='id')
+                input(type='text', name='name', placeholder='name')
                 br
-                input(type='number', name='name', placeholder='name')
-                br
-                input(type='number', name='model', placeholder='model')
+                input(type='text', name='model', placeholder='model')
                 br
                 input(type='text', name='producer', placeholder='producer')
                 br
@@ -56,8 +54,14 @@ block content
 
     .row
         .col-md-5.col-sm-6.col-xs-12
-            +panel("Add Purcahse", "primary") Purcahse
+            +panel("Add Purcahse", "primary")
                 form(action='/addCategory', method='POST')
+                    p Select a customer by ID:
+                    select
+                        for item in customers
+                            option(selected="true") #{item._node.properties.uuid}
+                    p Enter transaction data:
+                    p
                     input(type='number', name='price', placeholder='price')
                     input(type='number', name='discountRate', placeholder='Discount Rate')
                     input(type='date', name='date', placeholder='Date')
@@ -69,21 +73,32 @@ block content
         .col-md-5.col-sm-6.col-xs-12
             +panel("Connect Category to a Product", "info")
                 form(action='/addCategory', method='POST')
+                    p Select a category:
+                    select(id="category", name="category")
+                        for item in customers
+                            option(selected="true") #{item._node.properties.firstname}
+                    p Select a product:
+                    select
+                        for item in customers
+                            option(selected="true") #{item._node.properties.uuid}
+                    p
                     input(type='text', name='productname', placeholder='product name')
+
                     p
                     input(type='text', name='category', placeholder='category')
                     br
                     +button("info", "mini", "Connect Category")
                     if error
                         span.error &nbsp;#{error}
-    p users list:
 
-    if users.length
-        p Here are the current users:
-        ul.users
-            for customer in users
-                li.customer
-                    p firstname: #{customer.uuid} #{customer.firstname} #{customer.lastname}
-                    p firstname:  #{customer.country}
-    else
-        p There are no users currently.
+    //p users list:
+    //    if customers.length
+    //        p Here are the current users:
+    //            for customer in customers
+    //                li.customer
+    //                    p id:  #{customer._node.properties.uuid}
+    //                    p first name:  #{customer._node.properties.lastname}
+    //                    p age:  #{customer._node.properties.firstname}
+    //    else
+    //       p There are no users currently.
+
