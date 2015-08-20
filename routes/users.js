@@ -48,43 +48,32 @@ exports.getStats = function (req, res, next) {
     });
 };
 
-///**
-// * GET /users
-// */
-//exports.list = function (req, res, next) {
-//    Customer.getAll(function (err, users) {
-//        console.log("Inside Customer.getAll")
-//        console.log(users)
-//        console.log(users[0])
-//        if (err) return next(err);
-//        res.render('users', {
-//            Customer: Customer,
-//            users: users,
-//            firstname: req.query.firstname,   // Support pre-filling create form
-//            lastname : req.query.lastname,
-//            uuid : req.query.uuid,
-//            age : req.query.age,
-//            country : req.query.country,
-//            city: req.query.city,
-//            state: req.query.state,
-//            gender: req.query.gender,
-//            email: req.query.email,
-//            error: req.query.error,     // Errors creating; see create route
-//        });
-//    });
-//};
-
+/**
+ * GET /users
+ */
 exports.list = function (req, res, next) {
-    Customer.getAll(function (err, customers) {
+    Customer.getAll(function (err, users) {
+        console.log("Inside Customer.getAll")
+        console.log(users)
+        console.log(users[0])
         if (err) return next(err);
         res.render('users', {
             Customer: Customer,
-            users: customers,
+            users: users,
             firstname: req.query.firstname,   // Support pre-filling create form
+            lastname : req.query.lastname,
+            uuid : req.query.uuid,
+            age : req.query.age,
+            country : req.query.country,
+            city: req.query.city,
+            state: req.query.state,
+            gender: req.query.gender,
+            email: req.query.email,
             error: req.query.error,     // Errors creating; see create route
         });
     });
 };
+
 ///**
 // * POST /users {username, ...}
 // */
