@@ -1,6 +1,7 @@
 /**
- * Created by czeizm on 8/15/2015.
+ * Created by czeizm on 8/20/2015.
  */
+
 // user.js
 // User model logic.
 
@@ -17,7 +18,7 @@ var db = new neo4j.GraphDatabase({
 
 // Private constructor:
 
-var Product = module.exports = function Product(_node) {
+var Category = module.exports = function Category(_node) {
     // All we'll really store is the node; the rest of our properties will be
     // derivable or just pass-through properties (see below).
     this._node = _node;
@@ -25,7 +26,7 @@ var Product = module.exports = function Product(_node) {
 
 // Public constants:
 
-Product.VALIDATION_INFO = {
+Category.VALIDATION_INFO = {
     'username': {
         required: true,
         minLength: 2,
@@ -38,8 +39,8 @@ Product.VALIDATION_INFO = {
 // Public instance properties:
 
 // The user's username, e.g. 'aseemk'.
-Object.defineProperty(Product.prototype, 'uuid', {
-    get: function () { return this._node.properties['uuid']; }
+Object.defineProperty(Product.prototype, 'name', {
+    get: function () { return this._node.properties['name']; }
 });
 
 // Private helpers:
@@ -107,13 +108,13 @@ Product.prototype.patch = function (props, callback) {
     //var safeProps = validate(props);
 
     var query = [
-        'MATCH (product:Product {uuid: {uuid}})',
-        'SET product += {props}',
-        'RETURN product',
+        'MATCH (cat:Category {name: {name}})',
+        'SET cat += {props}',
+        'RETURN cat',
     ].join('\n');
 
     var params = {
-        uuid: this.uuid,
+        name: this.name,
         props: props,
     };
 
@@ -140,25 +141,25 @@ Product.prototype.patch = function (props, callback) {
         //}
 
         // Update our node with this updated+latest data from the server:
-        self._node = results[0]['uuid'];
+        self._node = results[0]['name'];
 
         callback(null);
     });
 };
 
-Product.prototype.del = function (callback) {
+Category.prototype.del = function (callback) {
     // Use a Cypher query to delete both this user and his/her following
     // relationships in one query and one network request:
     // (Note that this'll still fail if there are any relationships attached
     // of any other types, which is good because we don't expect any.)
     var query = [
-        'MATCH (product:Product {uuid: {uuid}})',
-        'OPTIONAL MATCH (customer) -[rel:Purchase]- (product)',
-        'DELETE product, rel',
+        'MATCH (category:Category {name: {name}})',
+        'OPTIONAL MATCH (product) -[rel:Is]- (category)',
+        'DELETE category, rel',
     ].join('\n')
 
     var params = {
-        uuid: this.uuid,
+        name: this.name,
     };
 
     db.cypher({
@@ -254,14 +255,14 @@ Product.prototype.del = function (callback) {
 
 // Static methods:
 
-Product.get = function (uuid, callback) {
+Category.get = function (name, callback) {
     var query = [
-        'MATCH (pro:Product {uuid: {uuid}})',
-        'RETURN pro',
+        'MATCH (cat:Caetgory {name: {name}})',
+        'RETURN cat',
     ].join('\n')
 
     var params = {
-        uuid: uuid,
+        name: name,
     };
 
     db.cypher({
@@ -273,34 +274,34 @@ Product.get = function (uuid, callback) {
             err = new Error('No such user with username: ' + username);
             return callback(err);
         }
-        var product = new Product(results[0]['uuid']);
-        callback(null, product);
+        var category = new Category(results[0]['name']);
+        callback(null, category);
     });
 };
 
-Product.getAll = function (callback) {
+Category.getAll = function (callback) {
     var query = [
-        'MATCH (pro:Product)',
-        'RETURN pro',
+        'MATCH (cat:Category)',
+        'RETURN cat',
     ].join('\n');
 
     db.cypher({
         query: query,
     }, function (err, results) {
         if (err) return callback(err);
-        var products = results.map(function (result) {
-            return new Product(result['pro']);
+        var categories = results.map(function (result) {
+            return new Category(result['cat']);
         });
-        callback(null, products);
+        callback(null, categories);
     });
 };
 
 // Creates the user and persists (saves) it to the db, incl. indexing it:
-Product.create = function (props, callback) {
-    console.log('Inside Product.create')
+Category.create = function (props, callback) {
+    console.log('Inside Category.create')
     var query = [
-        'CREATE (pro:Product {props})',
-        'RETURN pro',
+        'CREATE (cat:Category {props})',
+        'RETURN cat',
     ].join('\n');
 
     var params = {
@@ -322,8 +323,8 @@ Product.create = function (props, callback) {
         //        'The username ‘' + props.username + '’ is taken.');
         //}
         if (err) return callback(err);
-        var product = new Product(results[0]['pro']);
-        callback(null, product);
+        var category = new Product(results[0]['cat']);
+        callback(null, category);
     });
 };
 
