@@ -40,6 +40,8 @@ app.get('/users', routes.users.list);
 //app.get('/dbstat', routes.users.getStats);
 app.post('/addcustomer', routes.users.create);
 app.post('/addproduct', routes.products.create);
+app.post('/addcategory', routes.categories.create);
+
 
 //app.get('/users/:username', routes.users.show);
 //app.post('/users/:username', routes.users.edit);
