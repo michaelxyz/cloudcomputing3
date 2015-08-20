@@ -19,7 +19,7 @@ exports.list = function (req, res, next) {
     Product.getAll(function (err, products) {
         console.log("Inside Products.getAll")
         if (err) return next(err);
-        res.render('products', {
+        res.render('users', {
             // TODO: probably can delete all next lines except first
             products: products,
             uuid: req.query.uuid,   // Support pre-filling create form
@@ -27,6 +27,7 @@ exports.list = function (req, res, next) {
             producer : req.query.producer,
             error: req.query.error,     // Errors creating; see create route
         });
+        next()
     });
 };
 

@@ -70,25 +70,25 @@ block content
                     +button("primary", "mini", "Add Purcahse")
                     if error
                         span.error &nbsp;#{error}
-        .col-md-5.col-sm-6.col-xs-12
-            +panel("Connect Category to a Product", "info")
-                form(action='/bla ', method='POST')
-                    p Select a category:
-                    select(id="category", name="category")
-                        for item in categories
-                            option(selected="true") #{item._node.properties.name}
-                    p Select a product:
-                    select
-                        for item in products
-                            option(selected="true") #{item._node.properties.name}
-                    p
-                    input(type='text', name='productname', placeholder='product name')
-
-                    p
-                    input(type='text', name='category', placeholder='category')
-                    br
-                    +button("info", "mini", "Connect Category")
-                    if error
-                        span.error &nbsp;#{error}
+        //.col-md-5.col-sm-6.col-xs-12
+        //    +panel("Connect Category to a Product", "info")
+        //        form(action='/bla ', method='POST')
+        //            p Select a category:
+        //            select(id="category", name="category")
+        //                for item in categories
+        //                    option(selected="true") #{item._node.properties.name}
+        //            p Select a product:
+        //            select
+        //                for item in products
+        //                    option(selected="true") #{item._node.properties.name}
+        //            p
+        //            input(type='text', name='productname', placeholder='product name')
+        //
+        //            p
+        //            input(type='text', name='category', placeholder='category')
+        //            br
+        //            +button("info", "mini", "Connect Category")
+        //            if error
+        //                span.error &nbsp;#{error}
 
 

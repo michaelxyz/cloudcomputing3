@@ -37,6 +37,7 @@ app.get('/dbstat', routes.site.DBstats);
 app.get('/about', routes.site.about);
 
 app.get('/users', routes.users.list, routes.products.list, routes.categories.list);
+
 //app.get('/dbstat', routes.users.getStats);
 app.post('/addcustomer', routes.users.create);
 app.post('/addproduct', routes.products.create);

@@ -18,12 +18,13 @@ exports.list = function (req, res, next) {
     Category.getAll(function (err, categories) {
         console.log("Inside Categories.getAll")
         if (err) return next(err);
-        res.render('categories', {
+        res.render('users', {
             // TODO: probably can delete all next lines except first
             categories: categories,
             name: req.query.name,   // Support pre-filling create form
             error: req.query.error,     // Errors creating; see create route
         });
+        next()
     });
 };
 
