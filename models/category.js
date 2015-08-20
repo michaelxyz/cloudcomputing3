@@ -298,7 +298,6 @@ Category.getAll = function (callback) {
 
 // Creates the user and persists (saves) it to the db, incl. indexing it:
 Category.create = function (props, callback) {
-    console.log('Inside Category.create')
     var query = [
         'CREATE (cat:Category {props})',
         'RETURN cat',
@@ -323,7 +322,7 @@ Category.create = function (props, callback) {
         //        'The username ‘' + props.username + '’ is taken.');
         //}
         if (err) return callback(err);
-        var category = new Product(results[0]['cat']);
+        var category = new Category(results[0]['cat']);
         callback(null, category);
     });
 };
