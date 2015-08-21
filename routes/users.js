@@ -68,6 +68,8 @@ exports.list = function (req, res, next) {
             email: req.query.email,
             error: req.query.error,     // Errors creating; see create route
         });
+        console.log(customers)
+        console.log('****')
         next();
     });
 };
