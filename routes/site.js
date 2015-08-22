@@ -11,10 +11,13 @@ exports.index = function(req, res){
 };
 
 exports.getData = function(req, res){
-  res.render('getData',{
-    q1date: "",
-    q1category: "",
-    q1count : ""
+  Customer.getAll(function (err, customers) {
+    res.render('getData', {
+      q1date: "",
+      q1category: "",
+      q1count: "",
+      customers : customers,
+    });
   });
 };
 
