@@ -25,33 +25,11 @@ exports.queryOne = function (req, res, next) {
         var params = {
             date: req.body.date,
         };
-        console.log("****")
-        console.log(req.body.date)
-        console.log(query)
         db.cypher({
             query: query,
             params: params,
         }, function (err, results) {
-            //if (isConstraintViolation(err)) {
-            //    // TODO: This assumes username is the only relevant constraint.
-            //    // We could parse the constraint property out of the error message,
-            //    // but it'd be nicer if Neo4j returned this data semantically.
-            //    // Alternately, we could tweak our query to explicitly check first
-            //    // whether the username is taken or not.
-            //    err = new errors.ValidationError(
-            //        'The username �' + props.username + '� is taken.');
-            //}
             if (err) return callback(err);
-
-            //if (!results.length) {
-            //    err = new Error('User has been deleted! Username: ' + self.username);
-            //    return callback(err);
-            //}
-            console.log(results);
-            console.log('11111')
-            console.log(results[0].name)
-            console.log(results[0].counter)
-            //res.send(results[0]);
             res.render('getData', {
                 q1date: req.body.date,
                 q1category: results[0].name,
@@ -60,4 +38,27 @@ exports.queryOne = function (req, res, next) {
         });
 };
 
+exports.queryTwo = function (req, res, next) {
+    var query = [
+        'MATCH (c:Customer) where c.uuid={uuid}',
+        'MATCH purchases = (c)-[:Purchase]->(x)<-[:Purchase]-(other)',
+        'RETURN other.firstname AS name, other.lastname AS lastname,other.uuid AS uuid, count(x) AS counter',
+        'ORDER BY counter DESC LIMIT 1',
+    ].join('\n');
+
+    var params = {
+        uuid: req.body.uuid,
+    };
+    db.cypher({
+        query: query,
+        params: params,
+    }, function (err, results) {
+        if (err) return callback(err);
+        res.render('getData', {
+            q2fname: results[0].firstname,
+            q2lname: results[0].lastname,
+            q2uuid: results[0].uuid,
+        });
+    });
+};
 

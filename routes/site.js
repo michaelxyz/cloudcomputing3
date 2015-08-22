@@ -34,7 +34,7 @@ exports.refreshAll = function(req, res){
           categories: categories,
           products: products,
           customers : customers,
-          error: req.query.error,     // Errors creating; see create route
+          error: req.query.error,
         });
       });
     });

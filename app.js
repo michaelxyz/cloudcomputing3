@@ -44,6 +44,8 @@ app.post('/addproduct', routes.products.create);
 app.post('/addcategory', routes.categories.create);
 app.post('/addpurchase', routes.categories.create);
 app.post('/query1', routes.queries.queryOne);
+app.post('/query2', routes.queries.queryTwo);
+
 
 //app.get('/users/:username', routes.users.show);
 //app.post('/users/:username', routes.users.edit);
