@@ -24,7 +24,7 @@ block content
             p They both bought #{q2counter} similar products
    .row
       .col-md-5.col-sm-6.col-xs-12
-         +panel("[2] Find similar purchases to chosen client:", "info")
+         +panel("[3] Find similar purchases to chosen client:", "info")
             form(action='/query3', method='POST')
                p Select a customer by ID:
                select(type='number', name='uuid', id='uuid', placeholder='uuid')
@@ -39,4 +39,4 @@ block content
          +panel("[4] Most popular category:", "info")
             form(action='/query4', method='POST')
                +button("default", "mini", "Send")
-            p The most popular category is{products list}
+            p The most popular category is{put var here with} }

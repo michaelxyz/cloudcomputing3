@@ -45,6 +45,7 @@ exports.DBstats  = function (req, res, next) {
     'return toF*100/tot as toF , toM*100/tot as toM'
     ].join('\n');
 
+    var query4 = 'match (n:Product) return count(n)';
 
     console.log("called : DBstats  **** called : DBstats  ****")
     db.cypher({

@@ -5,31 +5,25 @@ block content
       .col-md-6.col-sm-2.col-xs-2
          +listGroup("list")
             +listItem("active") Users
-            +listItem Number of users:  MATCH (n:Customer); Return COUNT(*)
-            +listItem 5 Best selling countries: MATCH (n:Customer) Return COUNT(*) RETURN c.country, COUNT(*) ORDER BY COUNT(*) DESC
-            +listItem % of women:   % of men
-               p match (n:Customer)
-                p|with count(n) as tot
-                p| match (n:Customer)
-               p|where n.gender="female"
-               p|with count(*) as toF, tot
-               p|match (n:Customer)
-               p|where n.gender="male"
-               p|with count(*) as toM, tot, toF
-               p|return toF*100/tot as toF , toM*100/tot as toM
+            +listItem [1] Number of users:
+               //p #{var1}
+            +listItem [2] 5 Best selling countries:
+               //p #{var2}
+            +listItem [3] % of women:   % of men
+               //p #{var3}
    .row
       .col-md-5.col-sm-2.col-xs-2
          +listGroup("list")
             +listItem("active") Products
-            +listItem Number of products:
-               p MATCH (c:Product)
-               p   RETURN COUNT(*)
-            +listItem Top 3 products sales: {apple, toshiba, fauter}
-            +listItem
+            +listItem [4] Number of products:
+               //p #{var4}
+            +listItem [5] Top 3 products sales: {apple, toshiba, fauter}
+               //p #{var5}
+
    .row
       .col-md-6.col-sm-2.col-xs-2
          +listGroup("list")
             +listItem("active") Purchases
-            +listItem Average amount purchase: { }
-            +listItem Average transactions per year: { }
+            +listItem [6] Average amount purchase: { }
+               //p #{var6}
 
