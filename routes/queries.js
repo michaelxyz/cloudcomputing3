@@ -8,8 +8,6 @@ var Customer = require('../models/customer');
 var Product = require('../models/product');
 var Category = require('../models/category');
 
-//var allCustomers = Customer.getAll(function (err, customers){});
-
 var resDict = {
     q1date: "",
     q1category: "",
@@ -19,7 +17,6 @@ var resDict = {
     q2uuid: "",
     q2counter: "",
 }
-
 
 var db = new neo4j.GraphDatabase({
     // Support specifying database info via environment variables,
@@ -83,7 +80,9 @@ exports.queryOne = function (req, res, next) {
             resDict.q1date= req.body.date;
             resDict.q1category= results[0].name;
             resDict.q1count= results[0].counter;
-            res.render('getData', resDict);
+            Customer.getAll(function (err, customers){
+                resDict.customers= customers;
+                res.render('getData', resDict);})
         });
 };
 
@@ -102,13 +101,22 @@ exports.queryTwo = function (req, res, next) {
         query: query,
         params: params,
     }, function (err, results) {
-        if (err) return callback(err);
-        console.log(results[0]);
-        resDict.q2fname= results[0].firstname;
-        resDict.q2lname= results[0].lastname;
-        resDict.q2uuid= results[0].uuid;
-        resDict.q2counter= results[0].counter;
-        res.render('getData', resDict);
+        if (results[0] == undefined) {
+            Customer.getAll(function (err, customers){
+                resDict.customers= customers;
+                res.render('getData', resDict);})
+        } else {
+            if (err) return callback(err);
+            console.log(results[0]);
+            resDict.q2fname = results[0].firstname;
+            resDict.q2lname = results[0].lastname;
+            resDict.q2uuid = results[0].uuid;
+            resDict.q2counter = results[0].counter;
+            Customer.getAll(function (err, customers) {
+                resDict.customers = customers;
+                res.render('getData', resDict);
+            })
+        }
     });
 };
 
