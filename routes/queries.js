@@ -93,6 +93,7 @@ exports.queryTwo = function (req, res, next) {
         params: params,
     }, function (err, results) {
         if (err) return callback(err);
+        console.log(results[0]);
         res.render('getData', {
             q2fname: results[0].firstname,
             q2lname: results[0].lastname,

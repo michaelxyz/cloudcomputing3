@@ -15,10 +15,11 @@ block content
       .col-md-5.col-sm-6.col-xs-12
          +panel("[2] Similar users purchases:", "info")
             form(action='/query2', method='POST')
-               p Select a customer by ID:
-                  select
-                     for item in customers
-                        option(selected="true") #{item._node.properties.uuid}
+               input(type='number', name='uuid', placeholder='uuid')
+                  p Select a customer by ID:
+                     select
+                        for item in customers
+                           option(selected="true") #{item._node.properties.uuid}
                +button("default", "mini", "Send")
             //if(q2fname.length && q2lname.length && q2uuid.length)
             p The most similar user also ordered: #{q2fname} #{q2lname} #{q2uuid}
