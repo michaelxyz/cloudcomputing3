@@ -56,39 +56,36 @@ block content
         .col-md-5.col-sm-6.col-xs-12
             +panel("Add Purcahse", "primary")
                 form(action='/addpurchase', method='POST')
-                    p Select a customer by ID:
-                    select
-                        for item in customers
-                            option(selected="true") #{item._node.properties.uuid}
+                    p Select a customer by ID: &nbsp
+                        select
+                            for item in customers
+                                option(selected="true") #{item._node.properties.uuid}
                     p Enter transaction data:
-                    p
                     input(type='number', name='price', placeholder='price')
+                    br
                     input(type='number', name='discountRate', placeholder='Discount Rate')
+                    br
                     input(type='date', name='date', placeholder='Date')
+                    br
                     input(type='text', name='currency', placeholder='Currency')
                     br
                     +button("primary", "mini", "Add Purcahse")
                     if error
                         span.error &nbsp;#{error}
-        //.col-md-5.col-sm-6.col-xs-12
-        //    +panel("Connect Category to a Product", "info")
-        //        form(action='/bla ', method='POST')
-        //            p Select a category:
-        //            select(id="category", name="category")
-        //                for item in categories
-        //                    option(selected="true") #{item._node.properties.name}
-        //            p Select a product:
-        //            select
-        //                for item in products
-        //                    option(selected="true") #{item._node.properties.name}
-        //            p
-        //            input(type='text', name='productname', placeholder='product name')
-        //
-        //            p
-        //            input(type='text', name='category', placeholder='category')
-        //            br
-        //            +button("info", "mini", "Connect Category")
-        //            if error
-        //                span.error &nbsp;#{error}
+        .col-md-4.col-sm-6.col-xs-12
+            +panel("Connect Category to a Product", "info")
+                form(action='/cotegorytoproduct ', method='POST')
+                    p Select a product: &nbsp;
+                        select(id="product", name="product")
+                            for item in products
+                                option(selected="true") #{item._node.properties.name}
+                    p Select a category: &nbsp;
+                        select(id="category", name="category")
+                            for item in categories
+                                option(selected="true") #{item._node.properties.name}
+                    p
+                        +button("info", "mini", "Connect Category")
+                        if error
+                            span.error &nbsp;#{error}
 
 
