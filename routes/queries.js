@@ -4,6 +4,11 @@
 
 var URL = require('url');
 var neo4j = require('neo4j');
+var Customer = require('../models/customer');
+var Product = require('../models/product');
+var Category = require('../models/category');
+
+//var allCustomers = Customer.getAll(function (err, customers){});
 
 var resDict = {
     q1date: "",
@@ -14,6 +19,7 @@ var resDict = {
     q2uuid: "",
     q2counter: "",
 }
+
 
 var db = new neo4j.GraphDatabase({
     // Support specifying database info via environment variables,
@@ -49,11 +55,6 @@ exports.DBstats  = function (req, res, next) {
 
     }, function (err, results) {
         if (err) return callback(err);
-        console.log("results query1  "+ results);
-
-        console.log(results[0].counter)
-        console.log(results[0].name)
-        //res.send(results[0]);
         res.render('dbstatistics', {
             q11: req.body.date,
             q12: results[0].name,
