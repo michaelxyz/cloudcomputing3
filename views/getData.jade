@@ -27,14 +27,14 @@ block content
          +panel("[2] Find similar purchases to chosen client:", "info")
             form(action='/query3', method='POST')
                p Select a customer by ID:
-                  select(type='number', name='uuid', placeholder='uuid')
-                     for item in customers
-                        option(selected="true") #{item._node.properties.uuid}
-            +button("default", "mini", "Send")
-            p This Client also bought:
-               //for item in products
-               //   //ui. #{item._node.properties.name}
-               //   'daaaaata'
+               select(type='number', name='uuid', id='uuid', placeholder='uuid')
+                  for item in customers
+                     option(selected="true") #{item._node.properties.uuid}
+               +button("default", "mini", "Send")
+               p This Client also bought:
+                  //for item in products
+                  //   //ui. #{item._node.properties.name}
+                  //   'daaaaata'
       .col-md-4.col-sm-2.col-xs-2
          +panel("[4] Most popular category:", "info")
             form(action='/query4', method='POST')

@@ -57,13 +57,15 @@ block content
             +panel("Add Purcahse", "primary")
                 form(action='/addpurchase', method='POST')
                     p Select a customer by ID: &nbsp
-                        select
-                            for item in customers
-                                option(selected="true") #{item._node.properties.uuid}
+                    select(id="uuidcus", name="uuidcus")
+                        for item in customers
+                            option(selected="true") #{item._node.properties.uuid}
+                    p Select a product by ID: &nbsp
+                    select(id="uuidprod", name="uuidprod")
+                        for item in products
+                            option(selected="true") #{item._node.properties.name}
                     p Enter transaction data:
                     input(type='number', name='price', placeholder='price')
-                    br
-                    input(type='number', name='discountRate', placeholder='Discount Rate')
                     br
                     input(type='date', name='date', placeholder='Date')
                     br
@@ -74,7 +76,7 @@ block content
                         span.error &nbsp;#{error}
         .col-md-4.col-sm-6.col-xs-12
             +panel("Connect Category to a Product", "info")
-                form(action='/cotegorytoproduct ', method='POST')
+                form(action='/connectcategory ', method='POST')
                     p Select a product: &nbsp;
                         select(id="product", name="product")
                             for item in products

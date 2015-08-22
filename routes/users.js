@@ -253,3 +253,16 @@ exports.unfollow = function (req, res, next) {
         });
     });
 };
+
+
+exports.addpurchase = function (req, res, next) {
+    console.log('****************** Add purchase ********************');
+    console.log(req.body);
+
+};
+
+exports.connectcategory = function (req, res, next) {
+    console.log('****************** Add category ********************');
+    console.log(req.body);
+
+};

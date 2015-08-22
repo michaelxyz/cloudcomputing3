@@ -42,8 +42,8 @@ app.get('/users', routes.site.refreshAll);//[routes.users.list,routes.products.l
 app.post('/addcustomer', routes.users.create);
 app.post('/addproduct', routes.products.create);
 app.post('/addcategory', routes.categories.create);
-//app.post('/addpurchase', routes.categories.create);
-//app.post('/addcategory', routes.categories.create);
+app.post('/addpurchase', routes.users.addpurchase);
+app.post('/connectcategory', routes.users.connectcategory);
 //Queries
 app.post('/query1', routes.queries.queryOne);
 app.post('/query2', routes.queries.queryTwo);
