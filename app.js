@@ -43,7 +43,7 @@ app.post('/addcustomer', routes.users.create);
 app.post('/addproduct', routes.products.create);
 app.post('/addcategory', routes.categories.create);
 app.post('/addpurchase', routes.categories.create);
-
+app.post('/query1', routes.queries.queryOne);
 
 //app.get('/users/:username', routes.users.show);
 //app.post('/users/:username', routes.users.edit);
