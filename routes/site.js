@@ -18,10 +18,6 @@ exports.getData = function(req, res){
   });
 };
 
-exports.DBstats = function(req, res){
-  res.render('dbstatistics');
-};
-
 exports.about = function(req, res){
   res.render('about');
 };

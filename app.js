@@ -33,7 +33,7 @@ app.locals({
 // Routes
 app.get('/', routes.site.index);
 app.get('/getdata', routes.site.getData);
-app.get('/dbstat', routes.site.DBstats);
+app.get('/dbstat', routes.queries.DBstats);
 app.get('/about', routes.site.about);
 
 app.get('/users', routes.site.refreshAll);//[routes.users.list,routes.products.list,routes.categories.list]);
@@ -42,7 +42,9 @@ app.get('/users', routes.site.refreshAll);//[routes.users.list,routes.products.l
 app.post('/addcustomer', routes.users.create);
 app.post('/addproduct', routes.products.create);
 app.post('/addcategory', routes.categories.create);
-app.post('/addpurchase', routes.categories.create);
+//app.post('/addpurchase', routes.categories.create);
+//app.post('/addcategory', routes.categories.create);
+//Queries
 app.post('/query1', routes.queries.queryOne);
 app.post('/query2', routes.queries.queryTwo);
 

@@ -13,6 +13,98 @@ var db = new neo4j.GraphDatabase({
     auth: process.env['NEO4J_AUTH'],
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.DBstats  = function (req, res, next) {
+    var query1 = [
+        'MATCH (n:Customer)',
+        'Return COUNT(*)'
+    ].join('\n');
+
+    var query2 = [
+        'MATCH (c:Customer)',
+        'RETURN c.country, COUNT(*) ORDER BY COUNT(*) DESC LIMIT 3'
+    ].join('\n');
+
+    var query3 = ["match (n:Customer) with count(n) as tot'," +
+    'match (n:Customer) where n.gender="female" with count(*) as toF',
+    'tot match (n:Customer)  where n.gender="male" with count(*) as toM, tot, toF',
+    'return toF*100/tot as toF , toM*100/tot as toM'
+    ].join('\n');
+
+
+    console.log("called : DBstats  **** called : DBstats  ****")
+    db.cypher({
+        query: query1,
+
+    }, function (err, results) {
+        if (err) return callback(err);
+        console.log("results query1  "+ results);
+
+        console.log(results[0].counter)
+        console.log(results[0].name)
+        //res.send(results[0]);
+        res.render('dbstatistics', {
+            q11: req.body.date,
+            q12: results[0].name,
+            q13: results[0].counter,
+        });
+    });
+};
+
 exports.queryOne = function (req, res, next) {
         //var safeProps = validate(props);
         var query = [
