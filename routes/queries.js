@@ -5,6 +5,16 @@
 var URL = require('url');
 var neo4j = require('neo4j');
 
+var resDict = {
+    q1date: "",
+    q1category: "",
+    q1count: "",
+    q2fname: "",
+    q2lname: "",
+    q2uuid: "",
+    q2counter: "",
+}
+
 var db = new neo4j.GraphDatabase({
     // Support specifying database info via environment variables,
     // but assume Neo4j installation defaults.
@@ -69,11 +79,10 @@ exports.queryOne = function (req, res, next) {
             params: params,
         }, function (err, results) {
             if (err) return callback(err);
-            res.render('getData', {
-                q1date: req.body.date,
-                q1category: results[0].name,
-                q1count: results[0].counter,
-            });
+            resDict.q1date= req.body.date;
+            resDict.q1category= results[0].name;
+            resDict.q1count= results[0].counter;
+            res.render('getData', resDict);
         });
 };
 
@@ -81,7 +90,7 @@ exports.queryTwo = function (req, res, next) {
     var query = [
         'MATCH (c:Customer) where c.uuid={uuid}',
         'MATCH purchases = (c)-[:Purchase]->(x)<-[:Purchase]-(other)',
-        'RETURN other.firstname AS name, other.lastname AS lastname,other.uuid AS uuid, count(x) AS counter',
+        'RETURN other.firstname AS firstname, other.lastname AS lastname,other.uuid AS uuid, count(x) AS counter',
         'ORDER BY counter DESC LIMIT 1',
     ].join('\n');
 
@@ -94,11 +103,11 @@ exports.queryTwo = function (req, res, next) {
     }, function (err, results) {
         if (err) return callback(err);
         console.log(results[0]);
-        res.render('getData', {
-            q2fname: results[0].firstname,
-            q2lname: results[0].lastname,
-            q2uuid: results[0].uuid,
-        });
+        resDict.q2fname= results[0].firstname;
+        resDict.q2lname= results[0].lastname;
+        resDict.q2uuid= results[0].uuid;
+        resDict.q2counter= results[0].counter;
+        res.render('getData', resDict);
     });
 };
 
