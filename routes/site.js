@@ -16,6 +16,9 @@ exports.getData = function(req, res){
       q1date: "",
       q1category: "",
       q1count: "",
+      q2fname: "",
+      q2lname: "",
+      q2uuid: "",
       customers : customers,
     });
   });
