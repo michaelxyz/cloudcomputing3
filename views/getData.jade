@@ -14,17 +14,18 @@ block content
             p Hotest category in #{q1date}  is #{q1category} : #{q1count} units sold.
       .col-md-5.col-sm-6.col-xs-12
          +panel("[2] Similar users purchases:", "info")
-            form(action='/addCategory', method='POST')
-               p Select a customer by ID: {add iselect field}
-                  //select
-                  //   for item in customers
-                  //      option(selected="true") #{item._node.properties.uuid
+            form(action='/query2', method='POST')
+               p Select a customer by ID:
+                  select
+                     for item in customers
+                        option(selected="true") #{item._node.properties.uuid}
                +button("default", "mini", "Send")
-            p The most similar user also ordered: {products list}
+            //if(q2fname.length && q2lname.length && q2uuid.length)
+            p The most similar user also ordered: #{q2fname} #{q2lname} #{q2uuid}
    .row
       .col-md-5.col-sm-6.col-xs-12
          +panel("[3] Find most common categories that go together", "primary")
-            form(action='/query1', method='POST')
+            form(action='/query12', method='POST')
                input(type='date', name='date', placeholder='date')
                +button("default", "mini", "Send")
             p
