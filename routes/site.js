@@ -11,7 +11,11 @@ exports.index = function(req, res){
 };
 
 exports.getData = function(req, res){
-  res.render('getData');
+  res.render('getData',{
+    q1date: "",
+    q1category: "",
+    q1count : ""
+  });
 };
 
 exports.DBstats = function(req, res){

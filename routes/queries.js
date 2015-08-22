@@ -39,7 +39,7 @@ exports.queryOne = function (req, res, next) {
             //    // Alternately, we could tweak our query to explicitly check first
             //    // whether the username is taken or not.
             //    err = new errors.ValidationError(
-            //        'The username ‘' + props.username + '’ is taken.');
+            //        'The username ï¿½' + props.username + 'ï¿½ is taken.');
             //}
             if (err) return callback(err);
 
@@ -53,9 +53,9 @@ exports.queryOne = function (req, res, next) {
             console.log(results[0].counter)
             //res.send(results[0]);
             res.render('getData', {
-                date: req.body.date,
-                name: results[0].name,
-                count: results[0].counter,
+                q1date: req.body.date,
+                q1category: results[0].name,
+                q1count: results[0].counter,
             });
         });
 };

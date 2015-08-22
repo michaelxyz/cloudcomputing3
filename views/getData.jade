@@ -11,7 +11,7 @@ block content
                input(type='date', name='date', placeholder='date')
                +button("default", "mini", "Send")
             p
-            p Hotest category in {date}  is {category}:
+            p Hotest category in #{q1date}  is #{q1category} : #{q1count} units sold.
       .col-md-5.col-sm-6.col-xs-12
          +panel("[2] Similar users purchases:", "info")
             form(action='/addCategory', method='POST')
