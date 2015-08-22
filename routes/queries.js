@@ -15,59 +15,6 @@ var db = new neo4j.GraphDatabase({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.DBstats  = function (req, res, next) {
     var query1 = [
         'MATCH (n:Customer)',
