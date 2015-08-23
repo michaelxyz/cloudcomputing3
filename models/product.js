@@ -169,6 +169,25 @@ Product.prototype.del = function (callback) {
     });
 };
 
+Product.connect = function (data, callback) {
+    var query = [
+        'MATCH (product:Product) WHERE product.name={prodName}',
+        'MATCH (cat:Category) WHERE cat.name={catName}',
+        'MERGE (product)-[:Is]->(cat)',
+    ].join('\n')
+    var params = {
+        prodName: data.product,
+        catName: data.category,
+    };
+
+    db.cypher({
+        query: query,
+        params: params,
+    }, function (err) {
+        callback(err);
+    });
+};
+
 //User.prototype.follow = function (other, callback) {
 //    var query = [
 //        'MATCH (user:User {username: {thisUsername}})',
@@ -312,15 +331,6 @@ Product.create = function (props, callback) {
         query: query,
         params: params,
     }, function (err, results) {
-        //if (isConstraintViolation(err)) {
-        //    // TODO: This assumes username is the only relevant constraint.
-        //    // We could parse the constraint property out of the error message,
-        //    // but it'd be nicer if Neo4j returned this data semantically.
-        //    // Alternately, we could tweak our query to explicitly check first
-        //    // whether the username is taken or not.
-        //    err = new errors.ValidationError(
-        //        'The username ‘' + props.username + '’ is taken.');
-        //}
         if (err) return callback(err);
         var product = new Product(results[0]['pro']);
         callback(null, product);

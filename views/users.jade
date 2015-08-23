@@ -54,7 +54,7 @@ block content
 
     .row
         .col-md-5.col-sm-6.col-xs-12
-            +panel("Add Purcahse", "primary")
+            +panel("Add Purchase", "primary")
                 form(action='/addpurchase', method='POST')
                     p Select a customer by ID: &nbsp
                     select(id="uuidcus", name="uuidcus")
@@ -71,7 +71,7 @@ block content
                     br
                     input(type='text', name='currency', placeholder='Currency')
                     br
-                    +button("primary", "mini", "Add Purcahse")
+                    +button("primary", "mini", "Add Purchase")
                     if error
                         span.error &nbsp;#{error}
         .col-md-4.col-sm-6.col-xs-12

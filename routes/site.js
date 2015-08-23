@@ -21,6 +21,8 @@ exports.getData = function(req, res){
       q2uuid: "",
       q2counter: "",
       customers : customers,
+      q3clients: "",
+      q4product: "",
     });
   });
 };

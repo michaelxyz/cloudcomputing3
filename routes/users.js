@@ -5,6 +5,8 @@ var URL = require('url');
 
 var errors = require('../models/errors');
 var Customer = require('../models/customer');
+var Product = require('../models/product');
+
 
 
 function getUserURL(user) {
@@ -68,8 +70,6 @@ exports.list = function (req, res, next) {
             email: req.query.email,
             error: req.query.error,     // Errors creating; see create route
         });
-        console.log(customers)
-        console.log('****')
         next();
     });
 };
@@ -106,11 +106,6 @@ exports.list = function (req, res, next) {
  * POST /users {username, ...}
  */
 exports.create = function (req, res, next) {
-    console.log('Creating new customer');
-    for (i in req.body){
-        console.log(i)
-    }
-    //console.log(req.body.name);
     Customer.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -215,24 +210,29 @@ exports.del = function (req, res, next) {
 /**
  * POST /users/:username/follow {otherUsername}
  */
-exports.purchase = function (req, res, next) {
-    Customer.get(req.params.uuid, function (err, user) {
-        // TODO: Gracefully handle "no such user" error somehow.
-        // This is the source user, so e.g. 404 page?
+exports.addPurchase = function (req, res, next) {
+    console.log(req.body)
+    //if (err) return next(err);
+    Customer.purchase({
+        uuidcus: req.body.uuidcus,
+        uuidprod: req.body.uuidprod,
+        price: req.body.price,
+        date: req.body.date,
+        currency: req.body.currency }, function (err) {
         if (err) return next(err);
-        Customer.get(req.body.otherUsername, function (err, other) {
-            // TODO: Gracefully handle "no such user" error somehow.
-            // This is the target user, so redirect back to the source user w/
-            // an info message?
-            if (err) return next(err);
-            user.follow(other, function (err) {
-                if (err) return next(err);
-                res.redirect(getUserURL(user));
-            });
-        });
     });
 };
 
+exports.connectCategory = function (req, res, next) {
+    console.log(req.body)
+    //if (err) return next(err);
+    Product.connect({
+        product: req.body.product,
+        category: req.body.category,
+         }, function (err) {
+        if (err) return next(err);
+    });
+};
 /**
  * POST /users/:username/unfollow {otherUsername}
  */

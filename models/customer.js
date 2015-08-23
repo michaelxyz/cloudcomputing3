@@ -177,16 +177,18 @@ Customer.prototype.del = function (callback) {
     });
 };
 
-Customer.prototype.purchase = function (other, callback) {
+Customer.purchase = function (prod, callback) {
     var query = [
-        'MATCH (cus:Customer {uuid: {thisUuid}})',
-        'MATCH (product:Product {uuid: {productUuid}})',
-        'MERGE (cus) -[rel:Purchase]-> (product)',
+        'MATCH (cus:Customer) WHERE cus.uuid={thisUuid}',
+        'MATCH (product:Product) WHERE product.name={productUuid}',
+        'MERGE (cus)-[rel:Purchase]->(product) SET rel.price={price} SET rel.date={date} SET rel.currency={currency}',
     ].join('\n')
-
     var params = {
-        thisUuid: this.uuid,
-        productUuid: other.uuid,
+        thisUuid: prod.uuidcus,
+        productUuid: prod.uuidprod,
+        price: prod.price,
+        date: prod.date,
+        currency: prod.currency,
     };
 
     db.cypher({
@@ -306,7 +308,6 @@ Customer.getAll = function (callback) {
 
 
 Customer.countAll = function (callback) {
-    console.log("Inside getAll Customers")
     var query = [
         'MATCH (cus:Customer)',
         'RETURN COUNT(cus)',

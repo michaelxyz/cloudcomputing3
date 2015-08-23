@@ -6,9 +6,10 @@ block content
          +listGroup("list")
             +listItem("active") Users
             +listItem [1] Number of users:
-               //p #{var1}
-            +listItem [2] 5 Best selling countries:
-               //p #{var2}
+               p #{customerCounter.counter}
+            +listItem [2] 3 Best selling countries:
+               for c in popularCountires
+                  p Country: #{c.country}   Value: #{c.counter}
             +listItem [3] % of women:   % of men
                //p #{var3}
    .row
@@ -16,14 +17,9 @@ block content
          +listGroup("list")
             +listItem("active") Products
             +listItem [4] Number of products:
-               //p #{var4}
+               p #{numberOfProducts.counter}
             +listItem [5] Top 3 products sales: {apple, toshiba, fauter}
-               //p #{var5}
+               for p in topSoldProducts
+                  p #{p.product.properties.name}  #{p.product.properties.model} by  #{p.product.properties.producer} bought #{p.purchases}
 
-   .row
-      .col-md-6.col-sm-2.col-xs-2
-         +listGroup("list")
-            +listItem("active") Purchases
-            +listItem [6] Average amount purchase: { }
-               //p #{var6}
 

@@ -35,18 +35,18 @@ app.get('/', routes.site.index);
 app.get('/getdata', routes.site.getData);
 app.get('/dbstat', routes.queries.DBstats);
 app.get('/about', routes.site.about);
-
-app.get('/users', routes.site.refreshAll);//[routes.users.list,routes.products.list,routes.categories.list]);
-
-//app.get('/dbstat', routes.users.getStats);
+app.get('/users', routes.site.refreshAll);
 app.post('/addcustomer', routes.users.create);
 app.post('/addproduct', routes.products.create);
 app.post('/addcategory', routes.categories.create);
-app.post('/addpurchase', routes.users.addpurchase);
-app.post('/connectcategory', routes.users.connectcategory);
+app.post('/addpurchase', routes.users.addPurchase);
+app.post('/connectcategory', routes.users.connectCategory);
 //Queries
 app.post('/query1', routes.queries.queryOne);
 app.post('/query2', routes.queries.queryTwo);
+app.post('/query3', routes.queries.queryThree);
+app.post('/query4', routes.queries.queryFour);
+
 
 
 //app.get('/users/:username', routes.users.show);
