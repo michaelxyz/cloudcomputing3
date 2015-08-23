@@ -5,12 +5,12 @@ block content
       .col-md-6.col-sm-2.col-xs-2
          +listGroup("list")
             +listItem("active") Users
-            +listItem [1] Number of users:
-               p #{customerCounter.counter}
+            +listItem [1] Number of users:  #{customerCounter.counter}
             +listItem [2] 3 Best selling countries:
+            p
                for c in popularCountires
                   p Country: #{c.country}   Value: #{c.counter}
-            +listItem [3] % of women:   % of men
+            +listItem [3] % of women:37%  % of men: 62%  
                //p #{var3}
    .row
       .col-md-5.col-sm-2.col-xs-2
